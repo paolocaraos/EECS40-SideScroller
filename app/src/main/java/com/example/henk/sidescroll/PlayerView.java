@@ -15,7 +15,6 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     Canvas canvas;
 
-
     public PlayerView(Context context){
         super(context);
 
@@ -48,7 +47,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public boolean onTouchEvent(MotionEvent e){
-
+        return false;
     }
 
 }

@@ -1,16 +1,11 @@
 package com.example.henk.sidescroll;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.SurfaceHolder;
 
 public class MainActivity extends AppCompatActivity {
 
     PlayerView playerView;
-    SurfaceHolder holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
