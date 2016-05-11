@@ -24,5 +24,4 @@ public class SpriteFactory {
         block = sprite;
     }
 
-
 }

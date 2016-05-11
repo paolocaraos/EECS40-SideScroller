@@ -2,6 +2,7 @@ package com.example.henk.sidescroll;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
@@ -24,6 +25,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     private Vector<Enemy> enemyVector = new Vector<Enemy>(3, 2);
     private Terrain[][] terrainGrid = new Terrain[100][7];
     private Player player;
+
+    SpriteFactory spriteFactory;
 
     Bitmap controls;
 
@@ -52,14 +55,21 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
+        spriteFactory = new SpriteFactory();
         //Initialize bitmaps
 
         //initiate spritefactory and pass the bitmaps in
+        spriteFactory.addBlockSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.brickblock));
 
 
         //give terrain, player and enemy their sprites
 
 
+        for(int i = 0; i < terrainGrid.length; i++){
+            for(int j = 0; j < terrainGrid[i].length; j++){
+                //terrainGrid[i][j].setSprite(getSprite from factory);
+            }
+        }
         level = new Level(canvas, getWidth(), getHeight(), terrainGrid, player, enemyVector);
     }
 
