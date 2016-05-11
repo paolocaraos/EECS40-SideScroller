@@ -22,7 +22,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Canvas canvas;
 
     private Vector<Enemy> enemyVector = new Vector<Enemy>(3, 2);
-    private Vector<Terrain> terrainVector = new Vector<Terrain>(300, 2);
+    private Terrain[][] terrainGrid = new Terrain[100][7];
     private Player player;
 
     Bitmap controls;
@@ -53,7 +53,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder){
         //Initialize bitmaps
-        level = new Level(getWidth(), getHeight(), terrainVector, player, enemyVector);
+        level = new Level(canvas, getWidth(), getHeight(), terrainGrid, player, enemyVector);
     }
 
     @Override

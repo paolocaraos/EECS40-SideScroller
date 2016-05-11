@@ -1,5 +1,7 @@
 package com.example.henk.sidescroll;
 
+import android.graphics.Canvas;
+
 import java.util.Vector;
 
 /**
@@ -7,27 +9,52 @@ import java.util.Vector;
  */
 public class Level {
 
+    private Canvas canvas;
+
     private int score;
     private int lives;
 
     private int currentLevel;
 
     private Vector<Enemy> enemyVector;
-    private Vector<Terrain> terrainVector;
-
+    private Terrain[][] terrainGrid;
     private Player player;
 
     private int screenWidth;
     private int screenHeight;
 
-    Level(int screenWidth, int screenHeight, Vector<Terrain> terrainVector, Player player, Vector<Enemy> enemyVector){
-        this.terrainVector = terrainVector;
+    Level(Canvas canvas, int screenWidth, int screenHeight, Terrain[][] terrainGrid, Player player, Vector<Enemy> enemyVector){
+        this.terrainGrid = terrainGrid;
         this.player = player;
         this.enemyVector = enemyVector;
 
         this.screenWidth = screenWidth;
-        this. screenHeight = screenHeight;
+        this.screenHeight = screenHeight;
     }
 
+    void initiateGrid(){
+        switch(currentLevel) {
+            case 0:
+                for (int i = 0; i < terrainGrid.length; i++) {
+                    if(i % 10 == 0)
+                        terrainGrid[1][i].setSolid();
+                    terrainGrid[0][i].setSolid();
+                }
+                break;
+            default:
+                break;
+        }
 
+    }
+
+    void draw(Canvas canvas){
+        //terrain draw algorithm has room for optimization
+        for(int i = 0; i < terrainGrid.length; i++){
+            for (int j = 0; j < terrainGrid[i].length; j++){
+                terrainGrid[i][j].draw(canvas);
+            }
+        }
+
+        player.draw(canvas);
+    }
 }

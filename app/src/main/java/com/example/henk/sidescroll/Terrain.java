@@ -18,23 +18,36 @@ public class Terrain {
 
     private int screenWidth;
 
-    private Bitmap icon;
+    private Bitmap sprite;
     private Rect terrainSpace;
 
-    Terrain(Bitmap terrainIcon, int x, int y, int screen_width){
-        icon = terrainIcon;
+    Terrain(Bitmap terrainSprite, int x, int y, int screen_width){
+        sprite = terrainSprite;
         arr_x = x;
         arr_y = y;
 
         screenWidth = screen_width;
 
-        this.destroyable = destroyable;
-
         terrainSpace = new Rect();
     }
 
-    void draw(Canvas canvas, int playerCoordinate){
+    void draw(Canvas canvas){
+        if(isOnScreen & solid){
+            //draw it
+        }
 
     }
 
+    void setSolid(){
+        solid = true;
+    }
+
+
+    void update(int playerCoordinate_X){
+       //if coordinates within screen width, set isOnScreen true, else false
+    }
+
+    int getBlockLength(){
+        return blockLength;
+    }
 }
