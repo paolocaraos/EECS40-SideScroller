@@ -67,7 +67,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         for(int i = 0; i < terrainGrid.length; i++){
             for(int j = 0; j < terrainGrid[i].length; j++){
-                //terrainGrid[i][j].setSprite(getSprite from factory);
+                //terrainGrid[i][j] = new Terrain( put block sprite here);
             }
         }
         level = new Level(canvas, getWidth(), getHeight(), terrainGrid, player, enemyVector);

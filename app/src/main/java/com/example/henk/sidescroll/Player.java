@@ -1,7 +1,6 @@
 package com.example.henk.sidescroll;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import java.util.Vector;
@@ -10,6 +9,8 @@ import java.util.Vector;
  * Created by Paolo on 5/4/2016.
  */
 public class Player {
+
+    public static final int gravity = 5;
 
     private int screenX;
     private int screenY;
@@ -24,7 +25,7 @@ public class Player {
         SHOOTING
     }
 
-    Player(int screenWidth, int screenHeight, ){
+    Player(int screenWidth, int screenHeight){
 
     }
 
@@ -37,5 +38,4 @@ public class Player {
 
     }
 
-    void setRunningSprite
 }

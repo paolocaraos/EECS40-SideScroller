@@ -49,12 +49,12 @@ public class Level {
 
     void draw(Canvas canvas){
         //terrain draw algorithm has room for optimization
+        //Hint: change initial value of i to what the screen sees
         for(int i = 0; i < terrainGrid.length; i++){
             for (int j = 0; j < terrainGrid[i].length; j++){
                 terrainGrid[i][j].draw(canvas);
             }
         }
-
         player.draw(canvas);
     }
 }
