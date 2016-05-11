@@ -53,6 +53,13 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder){
         //Initialize bitmaps
+
+        //initiate spritefactory and pass the bitmaps in
+
+
+        //give terrain, player and enemy their sprites
+
+
         level = new Level(canvas, getWidth(), getHeight(), terrainGrid, player, enemyVector);
     }
 
