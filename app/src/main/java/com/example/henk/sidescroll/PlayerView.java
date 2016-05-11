@@ -96,6 +96,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addIdleSpriteL(BitmapFactory.decodeResource(getResources(), R.mipmap.standL12));
 
 
+
         //give terrain, player and enemy their sprites
 
         for(int i = 0; i < terrainGrid.length; i++){
