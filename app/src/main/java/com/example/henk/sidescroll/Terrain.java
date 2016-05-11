@@ -9,8 +9,10 @@ import android.graphics.Rect;
  */
 public class Terrain {
     private static final int blockLength = 100;
+    public static final int scrollSpeedConstant = 30;
 
-    public static final int scrollSpeed = 30;
+    private static int currentScrollVelocity;
+    private static Player player;
 
     private int arr_x;
     private int arr_y;
@@ -31,8 +33,8 @@ public class Terrain {
         arr_x = x;
         arr_y = y;
 
-
-        screenX =
+        screenX = 50 + blockLength*x;
+        screenY = 50 + blockLength*y;
 
         screenWidth = screen_width;
 
@@ -42,6 +44,7 @@ public class Terrain {
     void draw(Canvas canvas){
         if(isOnScreen & solid){
             //draw it
+
         }
 
     }
@@ -50,12 +53,35 @@ public class Terrain {
         solid = true;
     }
 
+    void deSolidify(){ solid = false; }
 
-    void update(int playerCoordinate_X){
-       //if coordinates within screen width, set isOnScreen true, else false
+
+    void update(){
+        isOnScreen = ((screenX <= screenWidth + blockLength) && (screenX >= -blockLength));
+        screenX += currentScrollVelocity;
+    }
+
+    void setCurrentScrollVelocity(PlayerView.Direction direction){
+        switch(direction){
+            case STAY:
+                currentScrollVelocity = 0;
+                break;
+            case RIGHT:
+                currentScrollVelocity = scrollSpeedConstant;
+                break;
+            case LEFT:
+                currentScrollVelocity = -scrollSpeedConstant;
+                break;
+            default:
+                break;
+        }
     }
 
     int getBlockLength(){
         return blockLength;
+    }
+
+    void setPlayer(Player player){
+        this.player = player;
     }
 }

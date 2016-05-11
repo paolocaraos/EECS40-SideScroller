@@ -2,6 +2,7 @@ package com.example.henk.sidescroll;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import java.util.Vector;
 
@@ -26,6 +27,10 @@ public class Player {
     private Vector<Bitmap> idleSpriteL;
     private Vector<Bitmap> shootingSprite;
     private Bitmap fallingSprite;
+
+    private Rect playerSpace;
+
+    private Terrain[][] terrainGrid;
 
     enum Status{
         IDLE,
@@ -55,6 +60,14 @@ public class Player {
 
     void update(){
 
+    }
+
+    Rect getPlayerSpace(){
+        return playerSpace;
+    }
+
+    void setTerrainGrid(Terrain[][] terrainGrid){
+        this.terrainGrid = terrainGrid;
     }
 
 }

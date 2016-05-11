@@ -30,6 +30,9 @@ public class Level {
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+
+        terrainGrid[0][0].setPlayer(player);
+        player.setTerrainGrid(terrainGrid);
     }
 
     void initiateGrid(){
@@ -37,8 +40,8 @@ public class Level {
             case 0:
                 for (int i = 0; i < terrainGrid.length; i++) {
                     if(i % 10 == 0)
-                        terrainGrid[1][i].setSolid();
-                    terrainGrid[0][i].setSolid();
+                        terrainGrid[5][i].setSolid();
+                    terrainGrid[6][i].setSolid();
                 }
                 break;
             default:
@@ -56,5 +59,17 @@ public class Level {
             }
         }
         player.draw(canvas);
+    }
+
+    void update(){
+        for(int i = 0; i < terrainGrid.length; i++){
+            for (int j = 0; j < terrainGrid[i].length; j++){
+                terrainGrid[i][j].update();
+            }
+        }
+    }
+
+    void scroll(PlayerView.Direction direction){
+
     }
 }
