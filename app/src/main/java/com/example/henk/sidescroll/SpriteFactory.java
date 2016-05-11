@@ -8,9 +8,9 @@ import java.util.Vector;
  * Created by Paolo on 5/10/2016.
  */
 public class SpriteFactory {
-    private Vector<Bitmap> running = new Vector<Bitmap>(5, 2);
-    private Vector<Bitmap> idle = new Vector<Bitmap>(5, 2);
-    private Bitmap block;
+    Vector<Bitmap> running = new Vector<Bitmap>(5, 2);
+    Vector<Bitmap> idle = new Vector<Bitmap>(5, 2);
+    Bitmap block;
 
     void addRunningSprite(Bitmap sprite){
         running.add(sprite);
@@ -22,6 +22,10 @@ public class SpriteFactory {
 
     void addBlockSprite(Bitmap sprite){
         block = sprite;
+    }
+
+    Vector<Bitmap> getRunningVector(){
+        return running;
     }
 
 }

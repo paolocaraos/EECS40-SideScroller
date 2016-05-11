@@ -10,13 +10,18 @@ import android.graphics.Rect;
 public class Terrain {
     private static final int blockLength = 100;
 
+    public static final int scrollSpeed = 30;
+
     private int arr_x;
     private int arr_y;
 
-    private boolean solid;
-    private boolean isOnScreen;
+    private int screenX;
+    private int screenY;
 
     private int screenWidth;
+
+    private boolean solid;
+    private boolean isOnScreen;
 
     private Bitmap sprite;
     private Rect terrainSpace;
@@ -25,6 +30,9 @@ public class Terrain {
         sprite = terrainSprite;
         arr_x = x;
         arr_y = y;
+
+
+        screenX =
 
         screenWidth = screen_width;
 
