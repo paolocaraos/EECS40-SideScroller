@@ -20,8 +20,10 @@ public class Player {
     private int screenX;
     private int screenY;
 
-    private Vector<Bitmap> runningSprite;
-    private Vector<Bitmap> idleSprite;
+    private Vector<Bitmap> runningSpriteR;
+    private Vector<Bitmap> runningSpriteL;
+    private Vector<Bitmap> idleSpriteR;
+    private Vector<Bitmap> idleSpriteL;
     private Vector<Bitmap> shootingSprite;
     private Bitmap fallingSprite;
 
@@ -33,7 +35,8 @@ public class Player {
     }
 
     Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight){
-        runningSprite = spriteFactory.getRunningVector();
+        runningSpriteR = spriteFactory.getRunningRVector();
+        runningSpriteL = spriteFactory.getRunningLVector();
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 

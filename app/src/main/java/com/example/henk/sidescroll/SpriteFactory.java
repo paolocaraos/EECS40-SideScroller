@@ -8,24 +8,42 @@ import java.util.Vector;
  * Created by Paolo on 5/10/2016.
  */
 public class SpriteFactory {
-    Vector<Bitmap> running = new Vector<Bitmap>(5, 2);
-    Vector<Bitmap> idle = new Vector<Bitmap>(5, 2);
+    Vector<Bitmap> runningR = new Vector<Bitmap>(5, 1);
+    Vector<Bitmap> runningL = new Vector<Bitmap>(5,1);
+    Vector<Bitmap> idleR = new Vector<Bitmap>(13, 1);
+    Vector<Bitmap> idleL = new Vector<Bitmap>(13,1);
     Bitmap block;
 
-    void addRunningSprite(Bitmap sprite){
-        running.add(sprite);
+    void addRunningSpriteR(Bitmap sprite){
+        runningR.add(sprite);
     }
 
-    void addIdleSprite(Bitmap sprite){
-        idle.add(sprite);
+    void addRunningSpriteL(Bitmap sprite){
+        runningL.add(sprite);
+    }
+
+    void addIdleSpriteR(Bitmap sprite){
+        idleR.add(sprite);
+    }
+
+    void addIdleSpriteL(Bitmap sprite){
+        idleL.add(sprite);
     }
 
     void addBlockSprite(Bitmap sprite){
         block = sprite;
     }
 
-    Vector<Bitmap> getRunningVector(){
-        return running;
+    Bitmap getBlock(){
+        return block;
+    }
+
+    Vector<Bitmap> getRunningRVector(){
+        return runningR;
+    }
+
+    Vector<Bitmap> getRunningLVector(){
+        return runningL;
     }
 
 }
