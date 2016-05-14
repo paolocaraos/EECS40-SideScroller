@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -30,7 +31,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     Bitmap controls;
 
-    public enum Direction{RIGHT, LEFT, DOWN, UP}
+    public enum Direction{RIGHT, LEFT}
 
     public PlayerView(Context context){
         super(context);
@@ -44,9 +45,13 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     public void draw(Canvas canvas){
         canvas.drawColor(Color.WHITE);
 
+        Paint p = new Paint(Color.BLUE);
+        canvas.drawRect(10, 10, 30, 30, p);
         //draw level
+        level.draw(canvas);
 
         //update level
+        level.update();
     }
 
     @Override
@@ -117,6 +122,16 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public boolean onTouchEvent(MotionEvent e){
+        //Get touch coordinates
+
+
+        //Switch case
+
+
+
+            //Pass direction, level.move(direction)
+
+
         return false;
     }
 

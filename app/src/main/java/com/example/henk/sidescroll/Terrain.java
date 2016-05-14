@@ -31,9 +31,10 @@ public class Terrain {
     }
 
     void draw(Canvas canvas){
-        if(isOnScreen){
-            //draw it
-
+        if(isOnScreen){ //draw it
+            System.out.println("Drawing terrain.\n");
+            terrainSpace.set(screenX - blockLength/2, screenY - blockLength/2, screenX + blockLength/2, screenY + blockLength/2);
+            canvas.drawBitmap(sprite, null, terrainSpace, null );
         }
     }
 

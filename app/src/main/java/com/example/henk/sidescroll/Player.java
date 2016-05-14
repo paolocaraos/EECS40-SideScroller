@@ -23,20 +23,23 @@ public class Player {
 
     private Vector<Bitmap> flyingRSprite;
     private Vector<Bitmap> flyingLSprite;
-    private Vector<Bitmap> fireRSprite;
-    private Vector<Bitmap> fireLSprite;
+    private int flyingVectorSize;
 
-    private Bitmap fallingSprite;
+    private Vector<Bitmap> fireRSprite;
+    private Bitmap fireLSprite;
+
+    private static int currentFrameIndex;
+    private Bitmap currentFlyingSprite;
 
     private Rect playerSpace;
 
     private Vector<Terrain> terrainList;
 
-    enum Status{
-        IDLE,
-        RUNNING,
+    private PlayerView.Direction currentDirection = PlayerView.Direction.RIGHT;
+
+    enum AnimationStatus{
+        FLYING,
         SHOOTING,
-        FALLING,
     }
 
     Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight){
@@ -44,22 +47,27 @@ public class Player {
         flyingLSprite = spriteFactory.getFlyingLVector();
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        flyingVectorSize = flyingLSprite.size();
 
         screenX = screenWidth/2;
-    }
+        screenY = screenHeight/3;
 
-    void spawn(Terrain block){
-        block.getBlockLength();
+        playerSpace = new Rect();
     }
 
     void draw(Canvas canvas){
-
-
+        playerSpace.set(screenX - playerRadius, screenY - playerRadius, screenX + playerRadius, screenY +playerRadius);
+        canvas.drawBitmap(currentFlyingSprite, null, playerSpace, null);
     }
 
+    void face(PlayerView.Direction direction){
+        currentDirection = direction;
+    }
 
     void update(){
-
+        currentFlyingSprite = (currentDirection == PlayerView.Direction.RIGHT)?
+                flyingRSprite.elementAt(currentFrameIndex++) : flyingRSprite.elementAt(currentFrameIndex++);
+        currentFrameIndex = currentFrameIndex % flyingVectorSize;
     }
 
     Rect getPlayerSpace(){

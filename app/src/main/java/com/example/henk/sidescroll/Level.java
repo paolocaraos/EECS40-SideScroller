@@ -9,12 +9,12 @@ import java.util.Vector;
  */
 public class Level {
 
-    private Canvas canvas;
+    Canvas canvas;
 
     private int score;
     private int lives;
 
-    private int currentLevel;
+    private int currentLevel= 0;
 
     private Vector<Enemy> enemyVector;
     private Vector<Terrain> terrainList;
@@ -32,6 +32,8 @@ public class Level {
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+
+        this.canvas = canvas;
 
         player.setTerrainList(terrainList);
 
@@ -60,7 +62,7 @@ public class Level {
         //terrain draw algorithm has room for optimization
         //Hint: change initial value of i to what the screen sees
         for(int i = 0; i < terrainList.size(); i++){
-                terrainList.elementAt(i).draw(canvas);
+            terrainList.elementAt(i).draw(canvas);
         }
         player.draw(canvas);
     }
@@ -72,6 +74,7 @@ public class Level {
     }
 
     void move(PlayerView.Direction direction){
+        player.face(direction);
 
     }
 }
