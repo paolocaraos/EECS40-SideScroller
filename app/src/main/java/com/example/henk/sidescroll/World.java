@@ -12,6 +12,7 @@ public class World {
     private Rect worldSpace;
 
     public static final int scrollSpeedConstant = 30;
+    static int scrollVelocity = 10;
 
     public class UnitCell{
         public static final int cellLength = 200;
@@ -48,6 +49,10 @@ public class World {
 
         int getCellLength(){
             return cellLength;
+        }
+
+        int getScrollVelocity(){
+            return scrollVelocity;
         }
     }
 

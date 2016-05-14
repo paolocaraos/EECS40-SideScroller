@@ -31,8 +31,7 @@ public class Terrain {
     }
 
     void draw(Canvas canvas){
-        if(isOnScreen){ //draw it
-            System.out.println("Drawing terrain.\n");
+        if(true){ //draw it
             terrainSpace.set(screenX - blockLength/2, screenY - blockLength/2, screenX + blockLength/2, screenY + blockLength/2);
             canvas.drawBitmap(sprite, null, terrainSpace, null );
         }
@@ -41,12 +40,14 @@ public class Terrain {
     void setUnitCell(World.UnitCell cell){
         this.cell = cell;
         blockLength = cell.getCellLength();
+
+        screenY = cell.getScreenY();
+        screenX = cell.getScreenX();
     }
 
 
     void update(){
-        screenX = cell.getScreenX();
-        screenY = cell.getScreenY();
+        screenX -= cell.getScrollVelocity();
 
         isOnScreen = ((screenX <= screenWidth + blockLength) && (screenX >= -blockLength));
     }

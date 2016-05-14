@@ -13,7 +13,7 @@ public class Player {
 
     public static final int gravity = 5;
 
-    public static final int playerRadius = 50;
+    public static final int playerRadius = 200;
 
     private int screenWidth;
     private int screenHeight;
@@ -48,6 +48,7 @@ public class Player {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         flyingVectorSize = flyingLSprite.size();
+        currentFlyingSprite = flyingRSprite.get(0);
 
         screenX = screenWidth/2;
         screenY = screenHeight/3;

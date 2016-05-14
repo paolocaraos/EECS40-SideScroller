@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -44,9 +43,6 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     public void draw(Canvas canvas){
         canvas.drawColor(Color.WHITE);
-
-        Paint p = new Paint(Color.BLUE);
-        canvas.drawRect(10, 10, 30, 30, p);
         //draw level
         level.draw(canvas);
 
@@ -62,6 +58,9 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
+        gt = new GameThread(this);
+        gt.start();
+
         spriteFactory = new SpriteFactory();
         //Initialize bitmaps
 
@@ -107,7 +106,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l11));
 
         //give terrain, player and enemy their sprites
-        for(int i = 0; i < terrainList.size(); i++){
+        for(int i = 0; i < terrainList.capacity(); i++){
             terrainList.add(new Terrain(spriteFactory.getBlock(), getWidth()));
         }
 

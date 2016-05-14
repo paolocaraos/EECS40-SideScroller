@@ -25,6 +25,8 @@ public class Level {
     private int screenWidth;
     private int screenHeight;
 
+    private boolean initiatingNextLevel;
+
     Level(Canvas canvas, int screenWidth, int screenHeight, Vector<Terrain> terrainList, Player player, Vector<Enemy> enemyVector){
         this.terrainList = terrainList;
         this.player = player;
@@ -38,6 +40,8 @@ public class Level {
         player.setTerrainList(terrainList);
 
         world = new World(player);
+
+        initiatingNextLevel = true;
     }
 
     void initiateGrid(){
@@ -59,15 +63,23 @@ public class Level {
     }
 
     void draw(Canvas canvas){
+        player.draw(canvas);
+
         //terrain draw algorithm has room for optimization
         //Hint: change initial value of i to what the screen sees
         for(int i = 0; i < terrainList.size(); i++){
             terrainList.elementAt(i).draw(canvas);
         }
-        player.draw(canvas);
     }
 
     void update(){
+        if(initiatingNextLevel){
+            initiateGrid();
+            initiatingNextLevel = false;
+        }
+
+        player.update();
+
         for(int i = 0; i < terrainList.size(); i++){
             terrainList.elementAt(i).update();
         }
