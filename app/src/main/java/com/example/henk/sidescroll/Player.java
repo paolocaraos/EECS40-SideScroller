@@ -23,21 +23,21 @@ public class Player {
 
     private Vector<Bitmap> runningSpriteR;
     private Vector<Bitmap> runningSpriteL;
-    private Vector<Bitmap> idleSpriteR;
-    private Vector<Bitmap> idleSpriteL;
     private Vector<Bitmap> shootingSprite;
-    private Bitmap fallingSprite;
+
 
     private Rect playerSpace;
 
-    private Terrain[][] terrainGrid;
+    private Vector<Terrain> terrainList;
 
-    enum Status{
+    private enum AnimationStatus{
         IDLE,
         RUNNING,
         SHOOTING,
-        FALLING
+        FALLING,
     }
+
+    private boolean isMidair;
 
     Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight){
         runningSpriteR = spriteFactory.getRunningRVector();
@@ -66,8 +66,8 @@ public class Player {
         return playerSpace;
     }
 
-    void setTerrainGrid(Terrain[][] terrainGrid){
-        this.terrainGrid = terrainGrid;
+    void setTerrainList(Vector<Terrain> terrainList){
+        this.terrainList = terrainList;
     }
 
 }

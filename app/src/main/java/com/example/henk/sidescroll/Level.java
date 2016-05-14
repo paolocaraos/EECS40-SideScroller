@@ -17,31 +17,37 @@ public class Level {
     private int currentLevel;
 
     private Vector<Enemy> enemyVector;
-    private Terrain[][] terrainGrid;
+    private Vector<Terrain> terrainList;
     private Player player;
+
+    private World world;
 
     private int screenWidth;
     private int screenHeight;
 
-    Level(Canvas canvas, int screenWidth, int screenHeight, Terrain[][] terrainGrid, Player player, Vector<Enemy> enemyVector){
-        this.terrainGrid = terrainGrid;
+    Level(Canvas canvas, int screenWidth, int screenHeight, Vector<Terrain> terrainList, Player player, Vector<Enemy> enemyVector){
+        this.terrainList = terrainList;
         this.player = player;
         this.enemyVector = enemyVector;
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 
-        terrainGrid[0][0].setPlayer(player);
-        player.setTerrainGrid(terrainGrid);
+        player.setTerrainList(terrainList);
+
+        world = new World(player);
     }
 
     void initiateGrid(){
+        int blockCounter = 0;
+
         switch(currentLevel) {
             case 0:
-                for (int i = 0; i < terrainGrid.length; i++) {
-                    if(i % 10 == 0)
-                        terrainGrid[5][i].setSolid();
-                    terrainGrid[6][i].setSolid();
+                for(int i = 0; i < world.getUnitCellArray().length; i++) {
+                    world.getUnitCell(i, 5).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    if(i % 10 == 0) {
+                        world.getUnitCell(i, 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    }
                 }
                 break;
             default:
@@ -53,23 +59,19 @@ public class Level {
     void draw(Canvas canvas){
         //terrain draw algorithm has room for optimization
         //Hint: change initial value of i to what the screen sees
-        for(int i = 0; i < terrainGrid.length; i++){
-            for (int j = 0; j < terrainGrid[i].length; j++){
-                terrainGrid[i][j].draw(canvas);
-            }
+        for(int i = 0; i < terrainList.size(); i++){
+                terrainList.elementAt(i).draw(canvas);
         }
         player.draw(canvas);
     }
 
     void update(){
-        for(int i = 0; i < terrainGrid.length; i++){
-            for (int j = 0; j < terrainGrid[i].length; j++){
-                terrainGrid[i][j].update();
-            }
+        for(int i = 0; i < terrainList.size(); i++){
+            terrainList.elementAt(i).update();
         }
     }
 
-    void scroll(PlayerView.Direction direction){
+    void move(PlayerView.Direction direction){
 
     }
 }

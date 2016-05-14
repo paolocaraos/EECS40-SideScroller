@@ -23,12 +23,14 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Canvas canvas;
 
     private Vector<Enemy> enemyVector = new Vector<Enemy>(3, 2);
-    private Terrain[][] terrainGrid = new Terrain[100][7];
+    private Vector<Terrain> terrainList= new Vector<Terrain>(100,5);
     private Player player;
 
     SpriteFactory spriteFactory;
 
     Bitmap controls;
+
+    public enum Direction{RIGHT, LEFT, DOWN, UP}
 
     public PlayerView(Context context){
         super(context);
@@ -96,16 +98,13 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addIdleSpriteL(BitmapFactory.decodeResource(getResources(), R.mipmap.standleft12));
 
 
-
         //give terrain, player and enemy their sprites
-        for(int i = 0; i < terrainGrid.length; i++){
-            for(int j = 0; j < terrainGrid[i].length; j++){
-                terrainGrid[i][j] = new Terrain(spriteFactory.getBlock(),i,j,getWidth());
-            }
+        for(int i = 0; i < terrainList.size(); i++){
+            terrainList.add(new Terrain(spriteFactory.getBlock(), getWidth()));
         }
 
         player = new Player(spriteFactory, getWidth(), getHeight());
-        level = new Level(canvas, getWidth(), getHeight(), terrainGrid, player, enemyVector);
+        level = new Level(canvas, getWidth(), getHeight(), terrainList, player, enemyVector);
     }
 
     @Override
