@@ -8,36 +8,26 @@ import java.util.Vector;
  * Created by Paolo on 5/10/2016.
  */
 public class SpriteFactory {
-    Vector<Bitmap> runningR = new Vector<Bitmap>(5, 1);
-    Vector<Bitmap> runningL = new Vector<Bitmap>(5,1);
-    Vector<Bitmap> idleR = new Vector<Bitmap>(13, 1);
-    Vector<Bitmap> idleL = new Vector<Bitmap>(13,1);
-    Bitmap jumpL;
-    Bitmap jumpR;
+    Vector<Bitmap> flyingR = new Vector<Bitmap>(8, 1);
+    Vector<Bitmap> flyingL = new Vector<Bitmap>(8,1);
+    Vector<Bitmap> fireR = new Vector<Bitmap>(11, 1);
+    Vector<Bitmap> fireL = new Vector<Bitmap>(11,1);
     Bitmap block;
 
-    void addJumpLeftSprite(Bitmap sprite){
-        jumpL = sprite;
+    void addFlyingRSprite(Bitmap sprite){
+        flyingR.add(sprite);
     }
 
-    void addJumpRightSprite(Bitmap sprite){
-        jumpR = sprite;
+    void addFlyingLSprite(Bitmap sprite){
+        flyingL.add(sprite);
     }
 
-    void addRunningSpriteR(Bitmap sprite){
-        runningR.add(sprite);
+    void addFireRSprite(Bitmap sprite){
+        fireR.add(sprite);
     }
 
-    void addRunningSpriteL(Bitmap sprite){
-        runningL.add(sprite);
-    }
-
-    void addIdleSpriteR(Bitmap sprite){
-        idleR.add(sprite);
-    }
-
-    void addIdleSpriteL(Bitmap sprite){
-        idleL.add(sprite);
+    void addFireLSprite(Bitmap sprite){
+        fireL.add(sprite);
     }
 
     void addBlockSprite(Bitmap sprite){
@@ -48,12 +38,12 @@ public class SpriteFactory {
         return block;
     }
 
-    Vector<Bitmap> getRunningRVector(){
-        return runningR;
+    Vector<Bitmap> getFlyingRVector(){
+        return flyingR;
     }
 
-    Vector<Bitmap> getRunningLVector(){
-        return runningL;
+    Vector<Bitmap> getFlyingLVector(){
+        return flyingL;
     }
 
 }

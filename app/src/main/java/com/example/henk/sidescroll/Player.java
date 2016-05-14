@@ -21,27 +21,27 @@ public class Player {
     private int screenX;
     private int screenY;
 
-    private Vector<Bitmap> runningSpriteR;
-    private Vector<Bitmap> runningSpriteL;
-    private Vector<Bitmap> shootingSprite;
+    private Vector<Bitmap> flyingRSprite;
+    private Vector<Bitmap> flyingLSprite;
+    private Vector<Bitmap> fireRSprite;
+    private Vector<Bitmap> fireLSprite;
 
+    private Bitmap fallingSprite;
 
     private Rect playerSpace;
 
     private Vector<Terrain> terrainList;
 
-    private enum AnimationStatus{
+    enum Status{
         IDLE,
         RUNNING,
         SHOOTING,
         FALLING,
     }
 
-    private boolean isMidair;
-
     Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight){
-        runningSpriteR = spriteFactory.getRunningRVector();
-        runningSpriteL = spriteFactory.getRunningLVector();
+        flyingRSprite = spriteFactory.getFlyingRVector();
+        flyingLSprite = spriteFactory.getFlyingLVector();
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 
