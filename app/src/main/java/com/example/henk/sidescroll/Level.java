@@ -39,12 +39,12 @@ public class Level {
 
         player.setTerrainList(terrainList);
 
-        world = new World(player);
+        world = new World(player, screenWidth, screenHeight);
 
         initiatingNextLevel = true;
     }
 
-    void initiateGrid(){
+    void initiateWorld(){
         int blockCounter = 0;
 
         switch(currentLevel) {
@@ -74,20 +74,22 @@ public class Level {
 
     void update(){
         if(initiatingNextLevel){
-            initiateGrid();
+            initiateWorld();
             initiatingNextLevel = false;
         }
 
         player.update();
+        world.update();
+
 
         for(int i = 0; i < terrainList.size(); i++){
-            terrainList.elementAt(i).update();
+            terrainList.elementAt(i).update(world.getScrollVel());
         }
     }
 
     void move(PlayerView.Direction direction){
         player.faceDirection(direction);
-
+        world.move(direction);
 
     }
 }
