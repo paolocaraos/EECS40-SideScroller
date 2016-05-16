@@ -1,5 +1,9 @@
 package com.example.henk.sidescroll;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 
 import java.util.Vector;
@@ -23,12 +27,14 @@ public class World {
     private int screenHeight;
 
     public static final int scrollSpeedConstant = 30;
-    int scrollVelocity = 30;
+    int scrollVelocity;
 
     private Vector<Terrain> terrainVector;
 
+    private Bitmap background;
+
     public class UnitCell{
-        public static final int cellLength = 200;
+        public static final int cellLength = 150;
 
         int screenX;
         int screenY;
@@ -60,6 +66,10 @@ public class World {
             return screenY;
         }
 
+        int getArrX(){return arrX;}
+
+        int getArrY(){return arrY;}
+
         int getCellLength(){
             return cellLength;
         }
@@ -71,8 +81,9 @@ public class World {
 
     private UnitCell[][] cells = new UnitCell[80][6];
 
-    World(Player player, int screenWidth, int screenHeight){
+    World(Player player, int screenWidth, int screenHeight, Bitmap bg){
         this.player = player;
+        background = bg;
 
         for(int i = 0; i < getUnitCellArray().length; i++) {
             for(int j = 0; j < getUnitCellArray()[i].length; j++) {
@@ -108,15 +119,12 @@ public class World {
     }
 
     void update(){
-        System.out.println("leftBound = "+ leftBound + "; playerSpaceLeftBound = "+ playerSpaceLeftBound);
         if(rightBound + scrollVelocity >= playerSpaceRightBound && leftBound + scrollVelocity <= playerSpaceLeftBound){
             leftBound += scrollVelocity;
             rightBound += scrollVelocity;
         } else{
             scrollVelocity = 0;
         }
-
-        worldSpace.set(leftBound, upperBound, rightBound, lowerBound);
     }
 
     int getScrollVel(){
@@ -131,6 +139,12 @@ public class World {
         }else{
             scrollVelocity = 0;
         }
+    }
+
+    void draw(Canvas canvas){
+        worldSpace.set(leftBound, upperBound, rightBound, lowerBound);
+        Paint p = new Paint(Color.BLACK);
+        canvas.drawRect(worldSpace, p);
     }
 
 }
