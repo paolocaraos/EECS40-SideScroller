@@ -46,8 +46,8 @@ public class Terrain {
     }
 
 
-    void update(){
-        screenX -= cell.getScrollVelocity();
+    void update(int scrollVel){
+        screenX += scrollVel;
 
         isOnScreen = ((screenX <= screenWidth + blockLength) && (screenX >= -blockLength));
     }

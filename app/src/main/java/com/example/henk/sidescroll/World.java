@@ -2,17 +2,30 @@ package com.example.henk.sidescroll;
 
 import android.graphics.Rect;
 
+import java.util.Vector;
+
 /**
  * Created by Paolo on 5/13/2016.
  */
 public class World {
 
     private Player player;
+    private int playerSpaceRightBound;
+    private int playerSpaceLeftBound;
 
     private Rect worldSpace;
+    private int rightBound;
+    private int upperBound;
+    private int leftBound;
+    private int lowerBound;
+
+    private int screenWidth;
+    private int screenHeight;
 
     public static final int scrollSpeedConstant = 30;
-    static int scrollVelocity = 10;
+    int scrollVelocity = 30;
+
+    private Vector<Terrain> terrainVector;
 
     public class UnitCell{
         public static final int cellLength = 200;
@@ -58,7 +71,7 @@ public class World {
 
     private UnitCell[][] cells = new UnitCell[80][6];
 
-    World(Player player){
+    World(Player player, int screenWidth, int screenHeight){
         this.player = player;
 
         for(int i = 0; i < getUnitCellArray().length; i++) {
@@ -67,11 +80,19 @@ public class World {
             }
         }
 
+        this.screenHeight = screenHeight;
+        this.screenWidth = screenWidth;
+
+        leftBound = 0;
+        upperBound = 0;
+        rightBound = cells[0][0].getCellLength() * cells.length;
+        lowerBound = cells[0][0].getCellLength() * cells[0].length;
+
         worldSpace = new Rect();
-        worldSpace.set(0 + player.getPlayerRadius(),
-                0 + player.getPlayerRadius(),
-                cells[0][0].getCellLength() * cells.length - player.getPlayerRadius(),
-                cells[0][0].getCellLength() * cells[0].length - player.getPlayerRadius());
+        worldSpace.set(leftBound, upperBound, rightBound, lowerBound);
+
+        playerSpaceLeftBound = screenWidth/2 - player.getPlayerRadius();
+        playerSpaceRightBound = screenWidth/2 + player.getPlayerRadius();
     }
 
     UnitCell getUnitCell(int x, int y){
@@ -84,6 +105,32 @@ public class World {
 
     Rect getWorldSpace(){
         return worldSpace;
+    }
+
+    void update(){
+        System.out.println("leftBound = "+ leftBound + "; playerSpaceLeftBound = "+ playerSpaceLeftBound);
+        if(rightBound + scrollVelocity >= playerSpaceRightBound && leftBound + scrollVelocity <= playerSpaceLeftBound){
+            leftBound += scrollVelocity;
+            rightBound += scrollVelocity;
+        } else{
+            scrollVelocity = 0;
+        }
+
+        worldSpace.set(leftBound, upperBound, rightBound, lowerBound);
+    }
+
+    int getScrollVel(){
+        return scrollVelocity;
+    }
+
+    void move(PlayerView.Direction direction){
+        if(direction == PlayerView.Direction.RIGHT){
+            scrollVelocity = -scrollSpeedConstant;
+        }else if(direction == PlayerView.Direction.LEFT){
+            scrollVelocity = scrollSpeedConstant;
+        }else{
+            scrollVelocity = 0;
+        }
     }
 
 }
