@@ -86,7 +86,8 @@ public class Level {
     }
 
     void move(PlayerView.Direction direction){
-        player.face(direction);
+        player.faceDirection(direction);
+
 
     }
 }

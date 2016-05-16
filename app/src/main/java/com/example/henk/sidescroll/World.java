@@ -66,6 +66,12 @@ public class World {
                 cells[i][j] = new World.UnitCell(i, j);
             }
         }
+
+        worldSpace = new Rect();
+        worldSpace.set(0 + player.getPlayerRadius(),
+                0 + player.getPlayerRadius(),
+                cells[0][0].getCellLength() * cells.length - player.getPlayerRadius(),
+                cells[0][0].getCellLength() * cells[0].length - player.getPlayerRadius());
     }
 
     UnitCell getUnitCell(int x, int y){
@@ -76,8 +82,8 @@ public class World {
         return cells;
     }
 
-    void move(PlayerView.Direction direction){
-
+    Rect getWorldSpace(){
+        return worldSpace;
     }
 
 }

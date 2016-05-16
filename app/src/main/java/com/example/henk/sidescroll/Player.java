@@ -61,11 +61,12 @@ public class Player {
         canvas.drawBitmap(currentFlyingSprite, null, playerSpace, null);
     }
 
-    void face(PlayerView.Direction direction){
+    void faceDirection(PlayerView.Direction direction){
         currentDirection = direction;
     }
 
     void update(){
+
         currentFlyingSprite = (currentDirection == PlayerView.Direction.RIGHT)?
                 flyingRSprite.elementAt(currentFrameIndex++) : flyingRSprite.elementAt(currentFrameIndex++);
         currentFrameIndex = currentFrameIndex % flyingVectorSize;
@@ -73,6 +74,10 @@ public class Player {
 
     Rect getPlayerSpace(){
         return playerSpace;
+    }
+
+    int getPlayerRadius(){
+        return playerRadius;
     }
 
     void setTerrainList(Vector<Terrain> terrainList){
