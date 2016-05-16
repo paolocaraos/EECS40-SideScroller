@@ -27,6 +27,9 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     private Vector<Terrain> terrainList= new Vector<Terrain>(100,5);
     private Player player;
 
+    private int screenWidth;
+    private int screenHeight;
+
     SpriteFactory spriteFactory;
 
     Bitmap up;
@@ -61,18 +64,17 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         level.draw(canvas);
 
         //draw arrowkeys;
-        /*
-        upSpace.set();
-        downSpace.set();
-        leftSpace.set();
-        rightSpace.set();
-        shootSpace.set();
+
+        upSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 42, screenWidth/2 + 100, screenHeight*2/3 + 242);
+        downSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 442, screenWidth/2 + 100, screenHeight*2/3 + 642);
+        leftSpace.set(screenWidth/2 - 300, screenHeight*2/3 + 242 ,screenWidth/2 - 100, screenHeight*2/3 + 442);
+        rightSpace.set(screenWidth/2 + 100, screenHeight*2/3 + 242, screenWidth/2 + 300, screenHeight*2/3 + 442);
+        shootSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 242, screenWidth/2 + 100, screenHeight*2/3 + 442);
         canvas.drawBitmap(up, null, upSpace, null);
         canvas.drawBitmap(down, null, downSpace, null);
         canvas.drawBitmap(left, null, leftSpace, null);
         canvas.drawBitmap(right, null, rightSpace, null);
         canvas.drawBitmap(shoot, null, shootSpace, null);
-        */
 
 
         //update level
@@ -158,7 +160,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addImpactRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_r3));
         spriteFactory.addImpactRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_r4));
 
-
+        screenHeight = getHeight();
+        screenWidth = getWidth();
 
 
         //spriteFactory.addBackground(BitmapFactory.decodeResource(getResources(), R.mipmap.sidescroll_background));
