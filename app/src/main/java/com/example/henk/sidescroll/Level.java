@@ -27,7 +27,11 @@ public class Level {
 
     private boolean initiatingNextLevel;
 
-    Level(Canvas canvas, int screenWidth, int screenHeight, Vector<Terrain> terrainList, Player player, Vector<Enemy> enemyVector){
+    Level(Canvas canvas,
+          int screenWidth, int screenHeight,
+          Vector<Terrain> terrainList, Player player, Vector<Enemy> enemyVector,
+          SpriteFactory spriteFactory)
+    {
         this.terrainList = terrainList;
         this.player = player;
         this.enemyVector = enemyVector;
@@ -39,7 +43,7 @@ public class Level {
 
         player.setTerrainList(terrainList);
 
-        world = new World(player, screenWidth, screenHeight);
+        world = new World(player, screenWidth, screenHeight, null, terrainList);
 
         initiatingNextLevel = true;
     }
@@ -55,19 +59,25 @@ public class Level {
                         world.getUnitCell(i, 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
                     }
                 }
+
+                for(int i = 0; i < 6; i++) {
+                    world.getUnitCell(0, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    world.getUnitCell(99, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                }
+
                 break;
             default:
                 break;
         }
-
     }
 
     void draw(Canvas canvas){
+        world.draw(canvas);
         player.draw(canvas);
 
         //terrain draw algorithm has room for optimization
         //Hint: change initial value of i to what the screen sees
-        for(int i = 0; i < terrainList.size(); i++){
+        for(int i = 0; terrainList.elementAt(i).getStatus(); i++){
             terrainList.elementAt(i).draw(canvas);
         }
     }

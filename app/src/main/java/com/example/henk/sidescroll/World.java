@@ -22,12 +22,13 @@ public class World {
     private int upperBound;
     private int leftBound;
     private int lowerBound;
+    private int worldLength;
 
     private int screenWidth;
     private int screenHeight;
 
     public static final int scrollSpeedConstant = 30;
-    int scrollVelocity;
+    private int scrollVelocity = -30;
 
     private Vector<Terrain> terrainVector;
 
@@ -74,14 +75,11 @@ public class World {
             return cellLength;
         }
 
-        int getScrollVelocity(){
-            return scrollVelocity;
-        }
     }
 
     private UnitCell[][] cells = new UnitCell[80][6];
 
-    World(Player player, int screenWidth, int screenHeight, Bitmap bg){
+    World(Player player, int screenWidth, int screenHeight, Bitmap bg, Vector<Terrain> terrainVector){
         this.player = player;
         background = bg;
 
@@ -99,11 +97,16 @@ public class World {
         rightBound = cells[0][0].getCellLength() * cells.length;
         lowerBound = cells[0][0].getCellLength() * cells[0].length;
 
+        worldLength = rightBound - leftBound;
+
         worldSpace = new Rect();
         worldSpace.set(leftBound, upperBound, rightBound, lowerBound);
 
+        this.terrainVector = terrainVector;
+
         playerSpaceLeftBound = screenWidth/2 - player.getPlayerRadius();
         playerSpaceRightBound = screenWidth/2 + player.getPlayerRadius();
+
     }
 
     UnitCell getUnitCell(int x, int y){
@@ -119,10 +122,23 @@ public class World {
     }
 
     void update(){
-        if(rightBound + scrollVelocity >= playerSpaceRightBound && leftBound + scrollVelocity <= playerSpaceLeftBound){
+        int playerSpaceUpperBound = player.getUpperBound();
+        int playerSpaceLowerBound = player.getLowerBound();
+
+        if(terrainCollision(playerSpaceUpperBound, playerSpaceLowerBound)){
+            scrollVelocity = 0;
+        } else if(rightBound + scrollVelocity >= playerSpaceRightBound && leftBound + scrollVelocity <= playerSpaceLeftBound){
             leftBound += scrollVelocity;
             rightBound += scrollVelocity;
         } else{
+            if(scrollVelocity > 0){
+                leftBound = playerSpaceLeftBound;
+                rightBound = playerSpaceLeftBound + worldLength;
+            }else {
+                leftBound = playerSpaceRightBound - worldLength;
+                rightBound = playerSpaceRightBound;
+            }
+
             scrollVelocity = 0;
         }
     }
@@ -147,4 +163,28 @@ public class World {
         canvas.drawRect(worldSpace, p);
     }
 
+    private boolean terrainCollision(int playerUpperBound, int playerLowerBound){
+        boolean collision = false;
+        int terrainY, terrainX;
+        Terrain terrain;
+
+        Rect playerSpace = player.getPlayerSpace();
+
+
+        for(int i = 0; terrainVector.elementAt(i).getStatus(); i++){
+            terrain = terrainVector.elementAt(i);
+            terrainY = terrain.getScreenY();
+            terrainX = terrain.getScreenX();
+            if(playerUpperBound < terrainY && playerLowerBound > terrainY)
+            {
+               if(scrollVelocity < 0 && terrainX > playerSpaceRightBound){
+                   collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
+               }else if(scrollVelocity > 0 && terrainX < playerSpaceLeftBound){
+                   collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
+               }
+            }
+        }
+
+        return collision;
+    }
 }

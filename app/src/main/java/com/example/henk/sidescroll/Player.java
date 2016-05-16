@@ -11,9 +11,11 @@ import java.util.Vector;
  */
 public class Player {
 
-    public static final int gravity = 5;
-
-    public static final int playerRadius = 200;
+    public static final int playerRadius = 150;
+    private int leftBound;
+    private int rightBound;
+    private int upperBound;
+    private int lowerBound;
 
     private int screenWidth;
     private int screenHeight;
@@ -53,6 +55,11 @@ public class Player {
         screenX = screenWidth/2;
         screenY = screenHeight/3;
 
+        leftBound = screenX - playerRadius;
+        rightBound = screenX + playerRadius;
+        upperBound = screenY - playerRadius;
+        lowerBound = screenY + playerRadius;
+
         playerSpace = new Rect();
     }
 
@@ -66,7 +73,6 @@ public class Player {
     }
 
     void update(){
-
         currentFlyingSprite = (currentDirection == PlayerView.Direction.RIGHT)?
                 flyingRSprite.elementAt(currentFrameIndex++) : flyingRSprite.elementAt(currentFrameIndex++);
         currentFrameIndex = currentFrameIndex % flyingVectorSize;
@@ -74,6 +80,14 @@ public class Player {
 
     Rect getPlayerSpace(){
         return playerSpace;
+    }
+
+    int getUpperBound(){
+        return upperBound;
+    }
+
+    int getLowerBound(){
+        return lowerBound;
     }
 
     int getPlayerRadius(){

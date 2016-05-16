@@ -161,13 +161,17 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
 
 
+        //spriteFactory.addBackground(BitmapFactory.decodeResource(getResources(), R.mipmap.sidescroll_background));
+
+
+
         //give terrain, player and enemy their sprites
         for(int i = 0; i < terrainList.capacity(); i++){
             terrainList.add(new Terrain(spriteFactory.getBlock(), getWidth()));
         }
 
         player = new Player(spriteFactory, getWidth(), getHeight());
-        level = new Level(canvas, getWidth(), getHeight(), terrainList, player, enemyVector);
+        level = new Level(canvas, getWidth(), getHeight(), terrainList, player, enemyVector, spriteFactory);
     }
 
     @Override
