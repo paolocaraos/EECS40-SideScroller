@@ -65,4 +65,8 @@ public class SpriteFactory {
         return flyingL;
     }
 
+    Vector<Bitmap> getProjectileL(){ return projectileL;}
+
+    Vector<Bitmap> getProjectileR() { return  projectileR;}
+
 }
