@@ -44,6 +44,7 @@ public class Level {
         player.setTerrainList(terrainList);
 
         world = new World(player, screenWidth, screenHeight, null, terrainList);
+        player.setWorld(world);
 
         initiatingNextLevel = true;
     }
@@ -55,14 +56,15 @@ public class Level {
             case 0:
                 for(int i = 0; i < world.getUnitCellArray().length; i++) {
                     world.getUnitCell(i, 5).setTerrainBlock(terrainList.elementAt(blockCounter++));
+
                     if(i % 10 == 0) {
                         world.getUnitCell(i, 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
                     }
                 }
 
-                for(int i = 0; i < 6; i++) {
+                for(int i = 1; i < 4; i++) {
                     world.getUnitCell(0, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
-                    world.getUnitCell(99, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    world.getUnitCell(79, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
                 }
 
                 break;
@@ -83,22 +85,24 @@ public class Level {
     }
 
     void update(){
+
         if(initiatingNextLevel){
             initiateWorld();
             initiatingNextLevel = false;
         }
 
+
         player.update();
         world.update();
 
 
-        for(int i = 0; i < terrainList.size(); i++){
+        for(int i = 0; i < terrainList.size(); i++) {
             terrainList.elementAt(i).update(world.getScrollVel());
         }
     }
 
     void move(PlayerView.Direction direction){
-        player.faceDirection(direction);
+        player.move(direction);
         world.move(direction);
 
     }

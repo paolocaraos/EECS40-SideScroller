@@ -27,10 +27,10 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     private Vector<Terrain> terrainList= new Vector<Terrain>(100,5);
     private Player player;
 
+    SpriteFactory spriteFactory;
+
     private int screenWidth;
     private int screenHeight;
-
-    SpriteFactory spriteFactory;
 
     Bitmap up;
     Bitmap down;
@@ -47,7 +47,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     Bitmap controls;
 
-    public enum Direction{RIGHT, LEFT}
+    public enum Direction{RIGHT, LEFT, UP, DOWN, STOP}
 
     public PlayerView(Context context){
         super(context);
@@ -65,6 +65,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         //draw arrowkeys;
 
+        /*
         upSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 42, screenWidth/2 + 100, screenHeight*2/3 + 242);
         downSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 442, screenWidth/2 + 100, screenHeight*2/3 + 642);
         leftSpace.set(screenWidth/2 - 300, screenHeight*2/3 + 242 ,screenWidth/2 - 100, screenHeight*2/3 + 442);
@@ -74,8 +75,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawBitmap(down, null, downSpace, null);
         canvas.drawBitmap(left, null, leftSpace, null);
         canvas.drawBitmap(right, null, rightSpace, null);
-        canvas.drawBitmap(shoot, null, shootSpace, null);
-
+        canvas.drawBitmap(shoot, null, shootSpace, null);*/
 
         //update level
         level.update();
@@ -101,7 +101,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         //initiate spritefactory and pass the bitmaps in
         spriteFactory.addBlockSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.brickblock));
-        spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
+        //spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right0));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right1));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right2));
@@ -110,6 +110,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right5));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right6));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right7));
+
         spriteFactory.addFlyingLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.left0));
         spriteFactory.addFlyingLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.left1));
         spriteFactory.addFlyingLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.left2));
@@ -118,6 +119,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addFlyingLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.left5));
         spriteFactory.addFlyingLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.left6));
         spriteFactory.addFlyingLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.left7));
+
+        /*
         spriteFactory.addFireRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_r1));
         spriteFactory.addFireRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_r2));
         spriteFactory.addFireRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_r3));
@@ -129,6 +132,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addFireRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_r9));
         spriteFactory.addFireRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_r10));
         spriteFactory.addFireRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_r11));
+
+
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l1));
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l2));
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l3));
@@ -141,6 +146,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l10));
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l11));
         spriteFactory.addFireLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.fire_l11));
+        */
+
         spriteFactory.addProjectileLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.projectile_l0));
         spriteFactory.addProjectileLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.projectile_l1));
         spriteFactory.addProjectileLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.projectile_l2));
@@ -149,6 +156,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addProjectileRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.projectile_r1));
         spriteFactory.addProjectileRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.projectile_r2));
         spriteFactory.addProjectileRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.projectile_r3));
+
+
         spriteFactory.addImpactLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_l0));
         spriteFactory.addImpactLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_l1));
         spriteFactory.addImpactLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_l2));
@@ -163,10 +172,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         screenHeight = getHeight();
         screenWidth = getWidth();
 
-
         //spriteFactory.addBackground(BitmapFactory.decodeResource(getResources(), R.mipmap.sidescroll_background));
-
-
 
         //give terrain, player and enemy their sprites
         for(int i = 0; i < terrainList.capacity(); i++){

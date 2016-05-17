@@ -23,37 +23,39 @@ public class Player {
     private int screenX;
     private int screenY;
 
+    private final int moveSpeedConstant = 30;
+    private int moveVelocity;
+
     private Vector<Bitmap> flyingRSprite;
     private Vector<Bitmap> flyingLSprite;
+    private Vector<Bitmap> currentSpriteVector;
+    private Bitmap currentSprite;
     private int flyingVectorSize;
 
     private Vector<Bitmap> fireRSprite;
     private Bitmap fireLSprite;
 
     private static int currentFrameIndex;
-    private Bitmap currentFlyingSprite;
 
     private Rect playerSpace;
 
     private Vector<Terrain> terrainList;
+    private World world;
 
-    private PlayerView.Direction currentDirection = PlayerView.Direction.RIGHT;
+    private PlayerView.Direction currentDirection;
 
-    enum AnimationStatus{
+    enum AnimationStatus {
         FLYING,
         SHOOTING,
     }
 
-    Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight){
-        flyingRSprite = spriteFactory.getFlyingRVector();
-        flyingLSprite = spriteFactory.getFlyingLVector();
+    Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight) {
+
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        flyingVectorSize = flyingLSprite.size();
-        currentFlyingSprite = flyingRSprite.get(0);
 
-        screenX = screenWidth/2;
-        screenY = screenHeight/3;
+        screenX = screenWidth / 2;
+        screenY = screenHeight / 3;
 
         leftBound = screenX - playerRadius;
         rightBound = screenX + playerRadius;
@@ -61,21 +63,54 @@ public class Player {
         lowerBound = screenY + playerRadius;
 
         playerSpace = new Rect();
+
+        flyingRSprite = spriteFactory.getFlyingRVector();
+        flyingLSprite = spriteFactory.getFlyingLVector();
+        flyingVectorSize = flyingRSprite.size();
+        currentSpriteVector = flyingLSprite;
+        currentSprite = flyingRSprite.elementAt(0);
+
+        currentDirection = PlayerView.Direction.RIGHT;
+
+        moveVelocity = moveSpeedConstant;
     }
 
-    void draw(Canvas canvas){
-        playerSpace.set(screenX - playerRadius, screenY - playerRadius, screenX + playerRadius, screenY +playerRadius);
-        canvas.drawBitmap(currentFlyingSprite, null, playerSpace, null);
+    void draw(Canvas canvas) {
+        playerSpace.set(screenX - playerRadius, screenY - playerRadius, screenX + playerRadius, screenY + playerRadius);
+        canvas.drawBitmap(currentSprite, null, playerSpace, null);
     }
 
-    void faceDirection(PlayerView.Direction direction){
+    void move(PlayerView.Direction direction) {
         currentDirection = direction;
     }
 
-    void update(){
-        currentFlyingSprite = (currentDirection == PlayerView.Direction.RIGHT)?
-                flyingRSprite.elementAt(currentFrameIndex++) : flyingRSprite.elementAt(currentFrameIndex++);
-        currentFrameIndex = currentFrameIndex % flyingVectorSize;
+    void update() {
+        switch (currentDirection) {
+            case LEFT:
+                currentSpriteVector = flyingLSprite;
+                break;
+            case RIGHT:
+                currentSpriteVector = flyingRSprite;
+                break;
+            case UP:
+                moveVelocity = -moveSpeedConstant;
+                break;
+            case DOWN:
+                moveVelocity = moveSpeedConstant;
+                break;
+            case STOP:
+                moveVelocity = 0;
+                break;
+            default:
+                break;
+        }
+        if(verticalCollision())
+            moveVelocity = -moveVelocity;
+
+        screenY += moveVelocity;
+
+        currentSprite = currentSpriteVector.elementAt(currentFrameIndex++);
+        currentFrameIndex %= flyingVectorSize;
     }
 
     Rect getPlayerSpace(){
@@ -96,6 +131,37 @@ public class Player {
 
     void setTerrainList(Vector<Terrain> terrainList){
         this.terrainList = terrainList;
+    }
+
+    void setWorld(World world){
+        this.world = world;
+    }
+
+    private boolean verticalCollision(){
+        boolean collision = false;
+
+        if(moveVelocity + screenY < world.getUpperBound() | moveVelocity + screenY > world.getLowerBound()){
+            return true;
+        }
+
+        Terrain terrain;
+        int terrainX, terrainY, terrainRadius;
+        for(int i = 0; terrainList.elementAt(i).getStatus(); i ++){
+            terrain = terrainList.elementAt(i);
+            terrainRadius = terrain.getBlockLength()/2 - 30;
+            terrainX = terrain.getScreenX();
+            terrainY = terrain.getScreenY();
+
+            if(leftBound < terrainX + terrainRadius && rightBound > terrainX - terrainRadius){
+                if(moveVelocity < 0 && terrainY < upperBound){
+                    collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
+                }else if(moveVelocity > 0 && terrainY > lowerBound){
+                    collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
+                }
+            }
+        }
+
+        return collision;
     }
 
 }

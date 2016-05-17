@@ -57,6 +57,10 @@ public class Terrain {
         screenX = cell.getScreenX();
     }
 
+    int getBlockLength(){
+        return blockLength;
+    }
+
 
     void update(int scrollVel){
         if(isActive) {

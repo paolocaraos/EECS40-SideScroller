@@ -28,7 +28,7 @@ public class World {
     private int screenHeight;
 
     public static final int scrollSpeedConstant = 30;
-    private int scrollVelocity = -30;
+    private int scrollVelocity;
 
     private Vector<Terrain> terrainVector;
 
@@ -107,6 +107,7 @@ public class World {
         playerSpaceLeftBound = screenWidth/2 - player.getPlayerRadius();
         playerSpaceRightBound = screenWidth/2 + player.getPlayerRadius();
 
+        scrollVelocity = scrollSpeedConstant;
     }
 
     UnitCell getUnitCell(int x, int y){
@@ -126,7 +127,7 @@ public class World {
         int playerSpaceLowerBound = player.getLowerBound();
 
         if(terrainCollision(playerSpaceUpperBound, playerSpaceLowerBound)){
-            scrollVelocity = 0;
+            scrollVelocity = -scrollVelocity;
         } else if(rightBound + scrollVelocity >= playerSpaceRightBound && leftBound + scrollVelocity <= playerSpaceLeftBound){
             leftBound += scrollVelocity;
             rightBound += scrollVelocity;
@@ -147,6 +148,14 @@ public class World {
         return scrollVelocity;
     }
 
+    int getUpperBound(){
+        return upperBound;
+    }
+
+    int getLowerBound(){
+        return lowerBound;
+    }
+
     void move(PlayerView.Direction direction){
         if(direction == PlayerView.Direction.RIGHT){
             scrollVelocity = -scrollSpeedConstant;
@@ -165,7 +174,7 @@ public class World {
 
     private boolean terrainCollision(int playerUpperBound, int playerLowerBound){
         boolean collision = false;
-        int terrainY, terrainX;
+        int terrainY, terrainX, terrainRadius;
         Terrain terrain;
 
         Rect playerSpace = player.getPlayerSpace();
@@ -173,13 +182,14 @@ public class World {
 
         for(int i = 0; terrainVector.elementAt(i).getStatus(); i++){
             terrain = terrainVector.elementAt(i);
+            terrainRadius = terrain.getBlockLength()/2 - 30;
             terrainY = terrain.getScreenY();
             terrainX = terrain.getScreenX();
-            if(playerUpperBound < terrainY && playerLowerBound > terrainY)
+            if(playerUpperBound <= terrainY + terrainRadius && playerLowerBound >= terrainY - terrainRadius)
             {
-               if(scrollVelocity < 0 && terrainX > playerSpaceRightBound){
+               if(scrollVelocity < 0 && terrainX >= playerSpaceRightBound){
                    collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
-               }else if(scrollVelocity > 0 && terrainX < playerSpaceLeftBound){
+               }else if(scrollVelocity > 0 && terrainX <= playerSpaceLeftBound){
                    collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
                }
             }
