@@ -193,7 +193,6 @@ public class Player {
 
 
     void shoot(){
-        System.out.println(projectileVector.elementAt(currentBulletIndex).getStatus());
         if(projectileVector.elementAt(currentBulletIndex).getStatus() == false) {
             projectileVector.elementAt(currentBulletIndex++).shoot(this);
         }

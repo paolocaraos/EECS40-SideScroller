@@ -3,6 +3,7 @@ package com.example.henk.sidescroll;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import java.util.Vector;
 
@@ -17,7 +18,7 @@ public class Level {
 
     private Vector<Enemy> enemyVector;
     private Vector<Terrain> terrainList;
-    private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(10, 10);
+    private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(2, 10);
     private Player player;
 
     private World world;
@@ -31,13 +32,21 @@ public class Level {
     private boolean finishedLevel;
 
     private int currHealthPercent = 100;
+    private Rect currentHealth;
+    private Paint currPaint;
+
+    private int points;
 
     Level(Canvas canvas,
           int screenWidth, int screenHeight,
           Vector<Terrain> terrainList, Player player, Vector<Enemy> enemyVector,
           SpriteFactory spriteFactory)
     {
-        currentLevel = 0;
+        currentLevel = 98;
+        points = 0;
+
+        currentHealth = new Rect();
+        currPaint =  new Paint();
 
         this.terrainList = terrainList;
         this.player = player;
@@ -63,7 +72,7 @@ public class Level {
         int blockCounter = 0;
 
         switch(currentLevel) {
-            case 0:
+            case 98:
                 //Set Max health and heal
                 player.setMaxHealth(100);
 
@@ -105,10 +114,10 @@ public class Level {
         }
 
         //draw health bar
-        spriteFactory.currentHealth.set(screenWidth - 165,  screenHeight - 97 - 490*(currHealthPercent/100), screenWidth - 75, screenHeight - 97);
-        spriteFactory.currPaint.setStyle(Paint.Style.FILL);
-        spriteFactory.currPaint.setColor(Color.GREEN);
-        canvas.drawRect(spriteFactory.currentHealth,spriteFactory.currPaint);
+        currentHealth.set(screenWidth - 165,  screenHeight - 97 - 490*(currHealthPercent/100), screenWidth - 75, screenHeight - 97);
+        currPaint.setStyle(Paint.Style.FILL);
+        currPaint.setColor(Color.GREEN);
+        canvas.drawRect(currentHealth, currPaint);
         //draw score
 
         //draw items
@@ -153,5 +162,13 @@ public class Level {
     void move(PlayerView.Direction direction){
         player.move(direction);
         world.move(direction);
+    }
+
+    int getPoints(){
+        return points;
+    }
+
+    int getLevel(){
+        return currentLevel;
     }
 }

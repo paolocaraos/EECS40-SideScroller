@@ -96,7 +96,6 @@ public class Projectile {
             screenX += velocity;
 
             if (collision()) {
-                System.out.println("Resetting");
                 deactivate();
             }
         }

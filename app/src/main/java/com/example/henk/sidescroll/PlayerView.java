@@ -75,10 +75,10 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         //text
         scoreText.setColor(Color.BLACK);
         scoreText.setTextSize(100);
-        canvas.drawText("Score:", 50, screenHeight - 50, scoreText);
+        canvas.drawText("EXP: " + level.getPoints(), 10, screenHeight - 30, scoreText);
         healthText.setColor(Color.BLACK);
         healthText.setTextSize(100);
-        canvas.drawText("HP", screenWidth - 120, screenHeight - 72, healthText);
+        canvas.drawText("HP", screenWidth - 170, screenHeight - 10, healthText);
 
         //draw arrowkeys;
         upSpace.set(screenWidth / 2 - 100, screenHeight - 642, screenWidth / 2 + 100, screenHeight - 442);
@@ -116,6 +116,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         barPaint = new Paint();
         healthText = new Paint();
+        scoreText = new Paint();
 
 
         //arrowkey
