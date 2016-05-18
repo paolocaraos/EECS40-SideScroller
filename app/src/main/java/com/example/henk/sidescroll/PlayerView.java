@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -42,6 +43,9 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Rect leftSpace;
     Rect rightSpace;
     Rect shootSpace;
+    Rect healthBar;
+    Rect currentHealth;
+    Paint paint;
 
     Bitmap controls;
 
@@ -61,12 +65,24 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         //draw level
         level.draw(canvas);
 
+        //health
+        healthBar.set(screenWidth - 170, screenHeight - 592, screenWidth - 70, screenHeight - 92);
+        currentHealth.set(screenWidth - 165, screenHeight - 587, screenWidth - 75, screenHeight - 97);
+        //border
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(healthBar,paint);
+        //fill
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.GREEN);
+        canvas.drawRect(currentHealth,paint);
+
         //draw arrowkeys;
-        upSpace.set(screenWidth / 2 - 100, screenHeight * 2 / 3 + 42, screenWidth / 2 + 100, screenHeight * 2 / 3 + 242);
-        downSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 442, screenWidth/2 + 100, screenHeight*2/3 + 642);
-        leftSpace.set(screenWidth/2 - 300, screenHeight*2/3 + 242 ,screenWidth/2 - 100, screenHeight*2/3 + 442);
-        rightSpace.set(screenWidth/2 + 100, screenHeight*2/3 + 242, screenWidth/2 + 300, screenHeight*2/3 + 442);
-        shootSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 242, screenWidth/2 + 100, screenHeight*2/3 + 442);
+        upSpace.set(screenWidth / 2 - 100, screenHeight - 642, screenWidth / 2 + 100, screenHeight - 442);
+        downSpace.set(screenWidth/2 - 100, screenHeight - 242, screenWidth/2 + 100, screenHeight- 42);
+        leftSpace.set(screenWidth/2 - 300, screenHeight - 442 ,screenWidth/2 - 100, screenHeight - 242);
+        rightSpace.set(screenWidth/2 + 100, screenHeight - 442, screenWidth/2 + 300, screenHeight - 242);
+        shootSpace.set(screenWidth/2 - 100, screenHeight - 442, screenWidth/2 + 100, screenHeight - 242);
         canvas.drawBitmap(up, null, upSpace, null);
         canvas.drawBitmap(down, null, downSpace, null);
         canvas.drawBitmap(left, null, leftSpace, null);
@@ -93,6 +109,9 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         leftSpace = new Rect();
         rightSpace = new Rect();
         shootSpace = new Rect();
+        healthBar = new Rect();
+        currentHealth = new Rect();
+
 
         //arrowkey
         up = BitmapFactory.decodeResource(getResources(),R.mipmap.up);
@@ -199,32 +218,31 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         //Get touch coordinates
         float touch_X = e.getX();
         float touch_Y = e.getY();
-
         //Switch case
         switch(e.getAction()){
             case MotionEvent.ACTION_DOWN:
                 if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
-                        && touch_Y >= (screenHeight*2/3 + 42) && touch_Y <= (screenHeight*2/3 + 242)){
+                        && touch_Y >= (screenHeight - 642) && touch_Y <= (screenHeight - 442)){
                     //move up
                     level.move(Direction.UP);
                 }
                 else if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
-                        && touch_Y >= (screenHeight*2/3 + 442) && touch_Y <= (screenHeight*2/3 + 642)){
+                        && touch_Y >= (screenHeight - 242) && touch_Y <= (screenHeight- 42)){
                     //move down
                     level.move(Direction.DOWN);
                 }
                 else if(touch_X >= (screenWidth/2 - 300) && touch_X <= (screenWidth/2 - 100)
-                        && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
+                        && touch_Y >= (screenHeight - 442) && touch_Y <= (screenHeight - 242)){
                     //move left
                     level.move(Direction.LEFT);
                 }
                 else if(touch_X >= (screenWidth/2 + 100) && touch_X <= (screenWidth/2 + 300)
-                        && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
+                        && touch_Y >= (screenHeight - 442) && touch_Y <= (screenHeight - 242)){
                     //move right
                     level.move(Direction.RIGHT);
                 }
                 else if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
-                        && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
+                        && touch_Y >= (screenHeight - 442) && touch_Y <= (screenHeight - 242)){
                     //shoot projectile
                     level.move(Direction.STOP);
                     player.shoot();
