@@ -204,7 +204,11 @@ public class Player {
         currentHealth = h;
     }
 
-    int getMaxHealth(){
-        return maxHealth;
+    int getCurrHealth(){
+        return (currentHealth * 100)/maxHealth ;
+    }
+
+    void takeDamage(int damage){
+        currentHealth -= damage;
     }
 }

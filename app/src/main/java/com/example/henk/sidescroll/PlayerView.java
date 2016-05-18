@@ -98,15 +98,24 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawBitmap(right, null, rightSpace, null);
         canvas.drawBitmap(shoot, null, shootSpace, null);
 
-        /*if(level.gameOver()){
+        if(level.getVictory()){
             gameOverRect.set(0,0,screenWidth, screenHeight);
             gameOverPaint.setColor(Color.BLACK);
             canvas.drawRect(gameOverRect,gameOverPaint);
             gameOverText.setColor(Color.WHITE);
             gameOverText.setTextSize(200);
-            canvas.drawText("GAME OVER", screenWidth/2, screenHeight/2, gameOverText);
+            canvas.drawText("Victory", 0 , screenHeight/2, gameOverText);
         }
-         */
+
+        if(level.getGameOver()){
+            gameOverRect.set(0,0,screenWidth, screenHeight);
+            gameOverPaint.setColor(Color.BLACK);
+            canvas.drawRect(gameOverRect,gameOverPaint);
+            gameOverText.setColor(Color.WHITE);
+            gameOverText.setTextSize(200);
+            canvas.drawText("GAME OVER", 0, screenHeight/2, gameOverText);
+        }
+
 
         //update level
         level.update();
@@ -152,7 +161,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         //initiate spritefactory and pass the bitmaps in
 
         spriteFactory.addBlockSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.brickblock));
-        //spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
+        spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
         spriteFactory.addRareCandySprite(BitmapFactory.decodeResource(getResources(), R.mipmap.rarecandy));
         spriteFactory.addBackgroundSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowresbackground));
 

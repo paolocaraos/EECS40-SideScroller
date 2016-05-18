@@ -44,9 +44,12 @@ public class Enemy {
 
     private Rect space;
 
-    Enemy(SpriteFactory f, int damage, int speed, int radius, int exp, World world, Vector<Terrain> terrainVector){
+    private Player player;
+
+    Enemy(SpriteFactory f, int damage, int speed, int radius, int exp, World world, Vector<Terrain> terrainVector, Player player){
         this.damage = damage;
         this.radius = radius;
+        this.player = player;
 
         leftSpriteVector = f.getMoltresL();
         rightSpriteVector = f.getMoltresR();
@@ -95,7 +98,6 @@ public class Enemy {
 
     void draw(Canvas canvas){
         if(isActive){
-            System.out.println("X = " + screenX + "Y  = " + screenY);
             space.set(leftBound, upperBound, rightBound, lowerBound);
             canvas.drawBitmap(currentSprite, null, space, null);
         }
@@ -116,16 +118,21 @@ public class Enemy {
 
             screenY += verticalVelocity;
 
-            if(screenY < world.getUpperBound() + 100 | screenY > world.getLowerBound() -100)
-                screenY = (world.getLowerBound() - world.getUpperBound())/2;
+            if(screenY < world.getUpperBound() + 100 | screenY > world.getLowerBound() -100) {
+                verticalVelocity = -verticalVelocity;
+                screenY = (world.getLowerBound() - world.getUpperBound()) / 2;
+            }
 
             upperBound = screenY - radius;
             lowerBound = screenY + radius;
 
             currentSprite = currentSpriteVector.elementAt(currentSpriteIndex++);
             currentSpriteIndex %= spriteVectorSize;
+
+            playerCollision();
         }
     }
+
 
     private boolean verticalCollision(){
 
@@ -153,5 +160,15 @@ public class Enemy {
         }
 
         return false;
+    }
+
+    private void playerCollision(){
+        if(space.intersects(player.getPlayerSpace(), space)){
+            player.takeDamage(damage);
+        }
+    }
+
+    void setTerrainVector(Vector<Terrain> v){
+        terrainVector = v;
     }
 }
