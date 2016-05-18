@@ -65,7 +65,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         //draw arrowkeys;
 
-        /*
+
         upSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 42, screenWidth/2 + 100, screenHeight*2/3 + 242);
         downSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 442, screenWidth/2 + 100, screenHeight*2/3 + 642);
         leftSpace.set(screenWidth/2 - 300, screenHeight*2/3 + 242 ,screenWidth/2 - 100, screenHeight*2/3 + 442);
@@ -75,7 +75,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawBitmap(down, null, downSpace, null);
         canvas.drawBitmap(left, null, leftSpace, null);
         canvas.drawBitmap(right, null, rightSpace, null);
-        canvas.drawBitmap(shoot, null, shootSpace, null);*/
+        canvas.drawBitmap(shoot, null, shootSpace, null);
 
         //update level
         level.update();
@@ -95,11 +95,16 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         gt.start();
 
         //arrowkey
+        up = BitmapFactory.decodeResource(getResources(),R.mipmap.up);
+        down = BitmapFactory.decodeResource(getResources(),R.mipmap.down);
+        left = BitmapFactory.decodeResource(getResources(),R.mipmap.left);
+        right = BitmapFactory.decodeResource(getResources(),R.mipmap.right);
 
         spriteFactory = new SpriteFactory();
         //Initialize bitmaps
 
         //initiate spritefactory and pass the bitmaps in
+
         spriteFactory.addBlockSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.brickblock));
         //spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right0));
@@ -191,10 +196,34 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public boolean onTouchEvent(MotionEvent e){
         //Get touch coordinates
-
+        float touch_X = e.getX();
+        float touch_Y = e.getY();
 
         //Switch case
-
+        switch(e.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
+                        && touch_Y >= (screenHeight*2/3 + 42) && touch_Y <= (screenHeight*2/3 + 242)){
+                    //move up
+                }
+                else if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
+                        && touch_Y >= (screenHeight*2/3 + 442) && touch_Y <= (screenHeight*2/3 + 642)){
+                    //move down
+                }
+                else if(touch_X >= (screenWidth/2 - 300) && touch_X <= (screenWidth/2 - 100)
+                        && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
+                    //move left
+                }
+                else if(touch_X >= (screenWidth/2 + 100) && touch_X <= (screenWidth/2 + 300)
+                        && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
+                    //move right
+                }
+                else if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
+                        && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
+                    //shoot projectile
+                }
+                break;
+        }
 
 
             //Pass direction, level.move(direction)
