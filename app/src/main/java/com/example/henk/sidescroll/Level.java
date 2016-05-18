@@ -15,7 +15,7 @@ public class Level {
 
     private Vector<Enemy> enemyVector;
     private Vector<Terrain> terrainList;
-    private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(3, 1);
+    private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(10, 10);
     private Player player;
 
     private World world;

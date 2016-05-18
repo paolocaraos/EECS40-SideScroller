@@ -60,8 +60,6 @@ public class Projectile {
 
     void shoot(Player player) {
         if(!isActive){
-            isActive = true;
-
             direction = player.getFaceDirection();
 
             screenY = player.getPositionY();
@@ -82,7 +80,12 @@ public class Projectile {
             }
 
             currentSprite = currentSpriteVector.elementAt(currentSpriteIndex++);
+            isActive = true;
         }
+    }
+
+    boolean getStatus(){
+        return isActive;
     }
 
     void update(){
@@ -93,7 +96,8 @@ public class Projectile {
             screenX += velocity;
 
             if (collision()) {
-                isActive = false;
+                System.out.println("Resetting");
+                deactivate();
             }
         }
     }
@@ -106,8 +110,6 @@ public class Projectile {
     }
 
     private boolean collision(){
-        boolean collided = false;
-
         if(screenX > screenWidth | screenX < 0)
             return true;
 
@@ -118,5 +120,10 @@ public class Projectile {
         }
         return false;
         //Check for enemy collision
+    }
+
+    private void deactivate(){
+        isActive = false;
+        currentSpriteIndex = 0;
     }
 }

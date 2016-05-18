@@ -193,7 +193,10 @@ public class Player {
 
 
     void shoot(){
-        projectileVector.elementAt(currentBulletIndex++).shoot(this);
+        System.out.println(projectileVector.elementAt(currentBulletIndex).getStatus());
+        if(projectileVector.elementAt(currentBulletIndex).getStatus() == false) {
+            projectileVector.elementAt(currentBulletIndex++).shoot(this);
+        }
         currentBulletIndex %= projectileVectorSize;
     }
 
