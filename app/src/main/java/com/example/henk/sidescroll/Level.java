@@ -185,7 +185,6 @@ public class Level {
 
         //if dead, gameOver
 
-        //if enemies dead level up
 
         if(finishedLevel){
             deactivate();
