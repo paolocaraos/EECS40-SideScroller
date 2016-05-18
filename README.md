@@ -31,6 +31,7 @@ The orange flying creature (Charizard) represents the player. The player travels
 
 Notes
 ---------------
+Our level starts at 98 and ends at 100
 In order to allow more flexibility with the level design, not all levels have bricks as borders of the dungeon.
 
 
