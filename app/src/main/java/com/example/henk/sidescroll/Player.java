@@ -17,6 +17,9 @@ public class Player {
     private int upperBound;
     private int lowerBound;
 
+    private int maxHealth;
+    private int currentHealth;
+
     private int screenWidth;
     private int screenHeight;
 
@@ -32,8 +35,9 @@ public class Player {
     private Bitmap currentSprite;
     private int flyingVectorSize;
 
-    private Vector<Bitmap> fireRSprite;
-    private Bitmap fireLSprite;
+    private Vector<Projectile> projectileVector;
+    private int projectileVectorSize;
+    private int currentBulletIndex;
 
     private static int currentFrameIndex;
 
@@ -43,11 +47,7 @@ public class Player {
     private World world;
 
     private PlayerView.Direction currentDirection;
-
-    enum AnimationStatus {
-        FLYING,
-        SHOOTING,
-    }
+    private PlayerView.Direction faceDirection;
 
     Player(SpriteFactory spriteFactory, int screenWidth, int screenHeight) {
 
@@ -72,7 +72,7 @@ public class Player {
 
         currentDirection = PlayerView.Direction.RIGHT;
 
-        moveVelocity = moveSpeedConstant;
+        moveVelocity = 0;
     }
 
     void draw(Canvas canvas) {
@@ -84,13 +84,19 @@ public class Player {
         currentDirection = direction;
     }
 
+    PlayerView.Direction getFaceDirection(){
+        return faceDirection;
+    }
+
     void update() {
         switch (currentDirection) {
             case LEFT:
                 currentSpriteVector = flyingLSprite;
+                faceDirection = currentDirection;
                 break;
             case RIGHT:
                 currentSpriteVector = flyingRSprite;
+                faceDirection = currentDirection;
                 break;
             case UP:
                 moveVelocity = -moveSpeedConstant;
@@ -104,8 +110,10 @@ public class Player {
             default:
                 break;
         }
-        if(verticalCollision())
-            moveVelocity = -moveVelocity;
+        //enemyCollision
+
+        if(terrainCollision())
+            moveVelocity = 0;
 
         screenY += moveVelocity;
 
@@ -125,6 +133,18 @@ public class Player {
         return lowerBound;
     }
 
+    int getRightBound(){
+        return  rightBound;
+    }
+
+    int getLeftBound(){
+        return leftBound;
+    }
+
+    int getPositionY(){
+        return screenY;
+    }
+
     int getPlayerRadius(){
         return playerRadius;
     }
@@ -137,8 +157,13 @@ public class Player {
         this.world = world;
     }
 
-    private boolean verticalCollision(){
-        boolean collision = false;
+    void setAmmo(Vector<Projectile> v){
+        projectileVector = v;
+        projectileVectorSize = v.size();
+        currentBulletIndex = 0;
+    }
+
+    private boolean terrainCollision(){
 
         if(moveVelocity + screenY < world.getUpperBound() | moveVelocity + screenY > world.getLowerBound()){
             return true;
@@ -148,20 +173,36 @@ public class Player {
         int terrainX, terrainY, terrainRadius;
         for(int i = 0; terrainList.elementAt(i).getStatus(); i ++){
             terrain = terrainList.elementAt(i);
-            terrainRadius = terrain.getBlockLength()/2 - 30;
+            terrainRadius = terrain.getLength()/2 - 30;
             terrainX = terrain.getScreenX();
             terrainY = terrain.getScreenY();
 
             if(leftBound < terrainX + terrainRadius && rightBound > terrainX - terrainRadius){
                 if(moveVelocity < 0 && terrainY < upperBound){
-                    collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
+                    if(playerSpace.intersects(playerSpace, terrain.getSpace()))
+                        return true;
                 }else if(moveVelocity > 0 && terrainY > lowerBound){
-                    collision |= playerSpace.intersects(playerSpace, terrain.getSpace());
+                    if(playerSpace.intersects(playerSpace, terrain.getSpace()))
+                        return true;
                 }
             }
         }
 
-        return collision;
+        return false;
     }
 
+
+    void shoot(){
+        projectileVector.elementAt(currentBulletIndex++).shoot(this);
+        currentBulletIndex %= projectileVectorSize;
+    }
+
+    void setMaxHealth(int h){
+        maxHealth = h;
+        currentHealth = h;
+    }
+
+    int getMaxHealth(){
+        return maxHealth;
+    }
 }

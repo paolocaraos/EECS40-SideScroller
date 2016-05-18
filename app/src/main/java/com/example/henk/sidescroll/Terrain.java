@@ -7,7 +7,7 @@ import android.graphics.Rect;
 /**
  * Created by Henk on 2016/5/4.
  */
-public class Terrain {
+public class Terrain{
     private static int blockLength;
 
     private static Player player;
@@ -57,7 +57,7 @@ public class Terrain {
         screenX = cell.getScreenX();
     }
 
-    int getBlockLength(){
+    int getLength(){
         return blockLength;
     }
 
@@ -71,6 +71,18 @@ public class Terrain {
 
     boolean getStatus(){
         return isActive;
+    }
+
+    void deactivate(){
+        isActive = false;
+        isOnScreen = false;
+
+        screenX = 0;
+        screenY = 0;
+        arrX = 0;
+        arrY = 0;
+
+        cell = null;
     }
 
     int getScreenY(){

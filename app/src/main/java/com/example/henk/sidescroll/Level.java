@@ -15,7 +15,7 @@ public class Level {
 
     private Vector<Enemy> enemyVector;
     private Vector<Terrain> terrainList;
-    private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(20, 10);
+    private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(3, 1);
     private Player player;
 
     private World world;
@@ -100,6 +100,8 @@ public class Level {
             playerProjectileVector.elementAt(i).draw(canvas);
         }
 
+        //draw items
+
         //terrain draw algorithm has room for optimization
         //Hint: change initial value of i to what the screen sees
         for(int i = 0; i < terrainList.size(); i++){
@@ -130,16 +132,15 @@ public class Level {
             terrainList.elementAt(i).update(world.getScrollVel());
         }
 
-        /*
+
         if(finishedLevel){
             deactivate();
             initiatingNextLevel = true;
-        }*/
+        }
     }
 
     void move(PlayerView.Direction direction){
         player.move(direction);
         world.move(direction);
-
     }
 }

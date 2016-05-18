@@ -206,31 +206,35 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
                 if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
                         && touch_Y >= (screenHeight*2/3 + 42) && touch_Y <= (screenHeight*2/3 + 242)){
                     //move up
+                    level.move(Direction.UP);
                 }
                 else if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
                         && touch_Y >= (screenHeight*2/3 + 442) && touch_Y <= (screenHeight*2/3 + 642)){
                     //move down
+                    level.move(Direction.DOWN);
                 }
                 else if(touch_X >= (screenWidth/2 - 300) && touch_X <= (screenWidth/2 - 100)
                         && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
                     //move left
+                    level.move(Direction.LEFT);
                 }
                 else if(touch_X >= (screenWidth/2 + 100) && touch_X <= (screenWidth/2 + 300)
                         && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
                     //move right
+                    level.move(Direction.RIGHT);
                 }
                 else if(touch_X >= (screenWidth/2 - 100) && touch_X <= (screenWidth/2 + 100)
                         && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
                     //shoot projectile
+                    level.move(Direction.STOP);
+                    player.shoot();
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 //stop
+                level.move(Direction.STOP);
                 break;
         }
-
-
-            //Pass direction, level.move(direction)
 
 
         return false;
