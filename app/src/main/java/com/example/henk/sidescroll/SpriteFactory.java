@@ -68,6 +68,8 @@ public class SpriteFactory {
         return block;
     }
 
+    Bitmap getItem() { return rarecandy; }
+
     Vector<Bitmap> getFlyingRVector(){
         return flyingR;
     }

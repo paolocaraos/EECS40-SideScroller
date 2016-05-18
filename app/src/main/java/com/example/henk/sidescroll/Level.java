@@ -108,7 +108,72 @@ public class Level {
                 //Spawn items
 
                 break;
+            case 99:
+                player.setMaxHealth(150);
+                //Determine number of ammo, and ammo size
+                for(int i = 0; i < 10; i++){
+                    playerProjectileVector.add(new Projectile(spriteFactory, screenWidth, screenHeight, terrainList, enemyVector, 90));
+                }
+                player.setAmmo(playerProjectileVector);
 
+                //Set up obstacles
+                for(int i = 0; i < world.getUnitCellArray().length; i++) {
+                    if(i % 5 == 0) {
+                        world.getUnitCell(i, 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell(i, 5).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    }
+                    else if(i % 4 == 0){
+                        world.getUnitCell(i, 0).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell(i, 1).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    }
+                    else if(i == 22 || i == 23 || i == 62 || i == 63) {
+                        world.getUnitCell(i, 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell(i, 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell(i, 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell(i, 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    }
+                }
+                for(int i = 1; i < 4; i++) {
+                    world.getUnitCell(0, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    world.getUnitCell(79, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                }
+
+                //Spawn enemies
+
+                //Spawn items
+
+                break;
+            case 100:
+                //Set Max health and heal
+                player.setMaxHealth(180);
+
+                //Determine number of ammo, and ammo size
+                for(int i = 0; i < 15; i++){
+                    playerProjectileVector.add(new Projectile(spriteFactory, screenWidth, screenHeight, terrainList, enemyVector, 100));
+                }
+                player.setAmmo(playerProjectileVector);
+
+                //Set up obstacles
+                for(int i = 0; i < world.getUnitCellArray().length; i++) {
+                    if (i % 10 == 0 && i != 0 && i != 80){
+                        world.getUnitCell(i, 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell((i-1), 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell((i+1), 4).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell((i-2), 5).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell((i+2), 5).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    }
+                    else if(i % 5 == 0) {
+                        world.getUnitCell(i, 2).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell(i, 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell((i+1), 2).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                        world.getUnitCell((i+1), 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+                    }
+                }
+                //Spawn enemies
+
+                //Spawn items
+
+                break;
             default:
                 break;
         }
