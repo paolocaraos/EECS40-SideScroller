@@ -27,7 +27,7 @@ This sample uses the Gradle build system. To build this project, use the
 
 How-to-Play
 ---------------
-The orange flying creature (Charizard) represents the player. The player travels through a dungeon with obstacles, items and enemies. The player can move by clicking the arrow keys. The player can shoot by clicking the target symbol in the middle of the arrow keys.
+The orange flying creature (Charizard) represents the player. The player travels through a dungeon with obstacles, items and enemies. The player can move by clicking the arrow keys. The player can shoot by clicking the target symbol in the middle of the arrow keys. To advance to the next level, the player must kill all enemies within the dungeon.
 
 Notes
 ---------------
