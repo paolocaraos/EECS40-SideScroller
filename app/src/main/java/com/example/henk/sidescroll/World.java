@@ -76,8 +76,10 @@ public class World {
         }
 
         void deactivate(){
-            terrainBlock.deactivate();
-            terrainBlock = null;
+            if(terrainBlock != null) {
+                terrainBlock.deactivate();
+                terrainBlock = null;
+            }
         }
     }
 

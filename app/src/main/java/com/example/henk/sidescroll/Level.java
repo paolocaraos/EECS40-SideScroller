@@ -16,7 +16,7 @@ public class Level {
 
     private int currentLevel;
 
-    private Vector<Enemy> enemyVector;
+    private Vector<Enemy> enemyVector = new Vector<Enemy>(3, 10);
     private Vector<Terrain> terrainList;
     private Vector<Projectile> playerProjectileVector = new Vector<Projectile>(2, 10);
     private Player player;
@@ -39,7 +39,7 @@ public class Level {
 
     Level(Canvas canvas,
           int screenWidth, int screenHeight,
-          Vector<Terrain> terrainList, Player player, Vector<Enemy> enemyVector,
+          Vector<Terrain> terrainList, Player player,
           SpriteFactory spriteFactory)
     {
         currentLevel = 98;
@@ -50,7 +50,6 @@ public class Level {
 
         this.terrainList = terrainList;
         this.player = player;
-        this.enemyVector = enemyVector;
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -77,7 +76,7 @@ public class Level {
                 player.setMaxHealth(100);
 
                 //Determine number of ammo, and ammo size
-                for(int i = 0; i < playerProjectileVector.capacity(); i++){
+                for(int i = 0; i < 3; i++){
                     playerProjectileVector.add(new Projectile(spriteFactory, screenWidth, screenHeight, terrainList, enemyVector, 80));
                 }
                 player.setAmmo(playerProjectileVector);
@@ -95,7 +94,16 @@ public class Level {
                     world.getUnitCell(79, i).setTerrainBlock(terrainList.elementAt(blockCounter++));
                 }
 
+                world.getUnitCell(11, 3).setTerrainBlock(terrainList.elementAt(blockCounter++));
+
                 //Spawn enemies
+                for(int i = 0; i < 3; i++){
+                    enemyVector.add(new Enemy(spriteFactory, 10, 10, 50, 50, world, terrainList ));
+                }
+                enemyVector.elementAt(0).setSpawnPosition(world.getUnitCell(37, 3));
+                enemyVector.elementAt(1).setSpawnPosition(world.getUnitCell(50, 3));
+                enemyVector.elementAt(2).setSpawnPosition(world.getUnitCell(10, 3));
+
 
                 //Spawn items
 
@@ -109,6 +117,10 @@ public class Level {
     void draw(Canvas canvas){
         world.draw(canvas);
         player.draw(canvas);
+
+        for(int i = 0; i < enemyVector.size(); i++){
+            enemyVector.elementAt(i).draw(canvas);
+        }
 
         for (int i = 0; i < playerProjectileVector.size(); i++){
             playerProjectileVector.elementAt(i).draw(canvas);
@@ -131,7 +143,12 @@ public class Level {
 
     private void deactivate(){
         world.reset();
+        enemyVector.removeAllElements();
+        System.out.println("enemyVector cleaned");
         playerProjectileVector.removeAllElements();
+        System.out.println("bullets cleaned");
+
+        System.out.println("Level finished.\n");
     }
 
     void update(){
@@ -139,17 +156,30 @@ public class Level {
         if(initiatingNextLevel){
             initiateWorld();
             initiatingNextLevel = false;
+
         }
 
         player.update();
         world.update();
 
         for(int i = 0; i < playerProjectileVector.size(); i++){
-            playerProjectileVector.elementAt(i).update();
+            points += playerProjectileVector.elementAt(i).update();
         }
 
         for(int i = 0; i < terrainList.size(); i++) {
             terrainList.elementAt(i).update(world.getScrollVel());
+        }
+
+        int deathCount = 0;
+        for(int i = 0; i < enemyVector.size(); i++){
+            enemyVector.elementAt(i).update(world.getScrollVel());
+            if(enemyVector.elementAt(i).getStatus() == false){
+                deathCount++;
+            }
+        }
+
+        if(enemyVector.size() == deathCount){
+            finishedLevel = true;
         }
 
 
@@ -161,6 +191,7 @@ public class Level {
             deactivate();
             initiatingNextLevel = true;
             currentLevel++;
+            finishedLevel = false;
         }
     }
 

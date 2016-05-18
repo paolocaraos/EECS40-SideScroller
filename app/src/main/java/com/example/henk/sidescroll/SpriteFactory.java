@@ -82,4 +82,6 @@ public class SpriteFactory {
 
     Vector<Bitmap> getMoltresR() { return moltresR; }
 
+    Vector<Bitmap> getMoltresL(){ return  moltresL;}
+
 }

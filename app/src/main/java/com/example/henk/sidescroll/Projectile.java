@@ -40,6 +40,8 @@ public class Projectile {
 
     private Rect space;
 
+    private Enemy enemyCollided;
+
     Projectile(SpriteFactory f, int screenWidth, int screenHeight, Vector<Terrain> terrainVector, Vector<Enemy> enemyVector, int radius){
         spriteFactory = f;
         this.screenWidth = screenWidth;
@@ -88,7 +90,7 @@ public class Projectile {
         return isActive;
     }
 
-    void update(){
+    int update(){
         if(isActive) {
             currentSprite = currentSpriteVector.elementAt(currentSpriteIndex++);
             currentSpriteIndex %= spriteVectorSize;
@@ -98,7 +100,14 @@ public class Projectile {
             if (collision()) {
                 deactivate();
             }
+
+            if(enemyCollision()){
+                int exp = enemyCollided.getExp();
+                deactivate();
+                return exp;
+            }
         }
+        return 0;
     }
 
     void draw(Canvas canvas){
@@ -118,11 +127,27 @@ public class Projectile {
             }
         }
         return false;
-        //Check for enemy collision
+
     }
 
     private void deactivate(){
         isActive = false;
+        enemyCollided = null;
         currentSpriteIndex = 0;
+    }
+
+    private boolean enemyCollision(){
+        //Check for enemy collision
+
+        for(int i = 0; i < enemyVector.size(); i++){
+            enemyCollided = enemyVector.elementAt(i);
+            if(enemyCollided.getStatus()){
+                if(space.intersects(space, enemyCollided.getSpace())){
+                    enemyCollided.die();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

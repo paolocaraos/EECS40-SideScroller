@@ -24,7 +24,6 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
     Canvas canvas;
 
-    private Vector<Enemy> enemyVector = new Vector<Enemy>(3, 2);
     private Vector<Terrain> terrainList= new Vector<Terrain>(200,5);
     private Player player;
 
@@ -245,7 +244,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         }
 
         player = new Player(spriteFactory, getWidth(), getHeight());
-        level = new Level(canvas, getWidth(), getHeight(), terrainList, player, enemyVector, spriteFactory);
+        level = new Level(canvas, getWidth(), getHeight(), terrainList, player, spriteFactory);
     }
 
     @Override
