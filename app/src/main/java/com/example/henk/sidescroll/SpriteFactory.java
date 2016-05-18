@@ -35,9 +35,9 @@ public class SpriteFactory {
         fireL.add(sprite);
     }
 
-    void addProjectileRSprite(Bitmap sprite) { projectileL.add(sprite); }
+    void addProjectileLSprite(Bitmap sprite) { projectileL.add(sprite); }
 
-    void addProjectileLSprite(Bitmap sprite) { projectileR.add(sprite); }
+    void addProjectileRSprite(Bitmap sprite) { projectileR.add(sprite); }
 
     void addImpactRSprite(Bitmap sprite) { impactR.add(sprite); }
 

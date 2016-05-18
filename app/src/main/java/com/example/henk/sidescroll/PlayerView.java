@@ -45,7 +45,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Rect shootSpace;
     Rect healthBar;
     Rect currentHealth;
-    Paint paint;
+    Paint barPaint;
+    Paint currPaint;
 
     Bitmap controls;
 
@@ -69,13 +70,13 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         healthBar.set(screenWidth - 170, screenHeight - 592, screenWidth - 70, screenHeight - 92);
         currentHealth.set(screenWidth - 165, screenHeight - 587, screenWidth - 75, screenHeight - 97);
         //border
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.BLACK);
-        canvas.drawRect(healthBar,paint);
+        barPaint.setStyle(Paint.Style.STROKE);
+        barPaint.setColor(Color.BLACK);
+        canvas.drawRect(healthBar,barPaint);
         //fill
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.GREEN);
-        canvas.drawRect(currentHealth,paint);
+        currPaint.setStyle(Paint.Style.FILL);
+        currPaint.setColor(Color.GREEN);
+        canvas.drawRect(currentHealth,currPaint);
 
         //draw arrowkeys;
         upSpace.set(screenWidth / 2 - 100, screenHeight - 642, screenWidth / 2 + 100, screenHeight - 442);
@@ -111,6 +112,9 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         shootSpace = new Rect();
         healthBar = new Rect();
         currentHealth = new Rect();
+
+        currPaint = new Paint();
+        barPaint = new Paint();
 
 
         //arrowkey
