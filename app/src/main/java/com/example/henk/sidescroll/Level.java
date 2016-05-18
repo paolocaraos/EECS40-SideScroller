@@ -118,7 +118,6 @@ public class Level {
         currPaint.setStyle(Paint.Style.FILL);
         currPaint.setColor(Color.GREEN);
         canvas.drawRect(currentHealth, currPaint);
-        //draw score
 
         //draw items
 
@@ -153,9 +152,14 @@ public class Level {
         }
 
 
+        //if dead, gameOver
+
+        //if enemies dead level up
+
         if(finishedLevel){
             deactivate();
             initiatingNextLevel = true;
+            currentLevel++;
         }
     }
 

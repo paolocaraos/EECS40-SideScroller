@@ -59,7 +59,6 @@ public class SpriteFactory {
     void addRareCandySprite(Bitmap sprite) { rarecandy = sprite; }
 
 
-
     Bitmap getCloud() { return cloud; }
 
     Bitmap getBlock(){

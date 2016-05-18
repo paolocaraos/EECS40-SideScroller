@@ -92,6 +92,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawBitmap(right, null, rightSpace, null);
         canvas.drawBitmap(shoot, null, shootSpace, null);
 
+        //if(level.gameOver())
+
         //update level
         level.update();
     }
