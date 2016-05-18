@@ -134,6 +134,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addBlockSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.brickblock));
         //spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
         spriteFactory.addRareCandySprite(BitmapFactory.decodeResource(getResources(), R.mipmap.rarecandy));
+        spriteFactory.addBackgroundSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowresbackground));
 
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right0));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right1));

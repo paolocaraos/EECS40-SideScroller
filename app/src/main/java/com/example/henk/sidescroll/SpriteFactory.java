@@ -20,6 +20,9 @@ public class SpriteFactory {
     Bitmap block;
     Bitmap cloud;
     Bitmap rarecandy;
+    Bitmap background;
+
+    void addBackgroundSprite (Bitmap sprite) { background = sprite; }
 
     void addFlyingRSprite(Bitmap sprite){
         flyingR.add(sprite);
