@@ -100,6 +100,7 @@ public class Level {
                 //Spawn items
 
                 break;
+
             default:
                 break;
         }

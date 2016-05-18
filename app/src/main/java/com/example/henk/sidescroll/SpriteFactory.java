@@ -17,6 +17,7 @@ public class SpriteFactory {
     Vector<Bitmap> impactL = new Vector<Bitmap>(5,1);
     Vector<Bitmap> impactR = new Vector<Bitmap>(5,1);
     Vector<Bitmap> moltresL = new Vector<Bitmap>(4,1);
+    Vector<Bitmap> moltresR = new Vector<Bitmap>(4,1);
     Bitmap block;
     Bitmap cloud;
     Bitmap rarecandy;
@@ -50,6 +51,8 @@ public class SpriteFactory {
 
     void addMoltresLSprite(Bitmap sprite) { moltresL.add(sprite); }
 
+    void addMoltresRSprite(Bitmap sprite) { moltresR.add(sprite); }
+
     void addBlockSprite(Bitmap sprite){
         block = sprite;
     }
@@ -76,5 +79,7 @@ public class SpriteFactory {
     Vector<Bitmap> getProjectileL(){ return projectileL;}
 
     Vector<Bitmap> getProjectileR() { return  projectileR;}
+
+    Vector<Bitmap> getMoltresR() { return moltresR; }
 
 }

@@ -44,10 +44,13 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Rect rightSpace;
     Rect shootSpace;
     Rect healthBar;
+    Rect gameOverRect;
     Paint barPaint;
     Paint healthText;
     Paint scoreText;
     Paint levelText;
+    Paint gameOverPaint;
+    Paint gameOverText;
 
     Bitmap controls;
 
@@ -96,7 +99,15 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         canvas.drawBitmap(right, null, rightSpace, null);
         canvas.drawBitmap(shoot, null, shootSpace, null);
 
-        //if(level.gameOver())
+        /*if(level.gameOver()){
+            gameOverRect.set(0,0,screenWidth, screenHeight);
+            gameOverPaint.setColor(Color.BLACK);
+            canvas.drawRect(gameOverRect,gameOverPaint);
+            gameOverText.setColor(Color.WHITE);
+            gameOverText.setTextSize(200);
+            canvas.drawText("GAME OVER", screenWidth/2, screenHeight/2, gameOverText);
+        }
+         */
 
         //update level
         level.update();
@@ -119,11 +130,14 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         rightSpace = new Rect();
         shootSpace = new Rect();
         healthBar = new Rect();
+        gameOverRect = new Rect();
 
         barPaint = new Paint();
         healthText = new Paint();
         scoreText = new Paint();
         levelText = new Paint();
+        gameOverPaint = new Paint();
+        gameOverText = new Paint();
 
 
         //arrowkey
@@ -214,6 +228,11 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l1));
         spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l2));
         spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l3));
+
+        spriteFactory.addMoltresRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_r0));
+        spriteFactory.addMoltresRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_r1));
+        spriteFactory.addMoltresRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_r2));
+        spriteFactory.addMoltresRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_r3));
 
         screenHeight = getHeight();
         screenWidth = getWidth();
