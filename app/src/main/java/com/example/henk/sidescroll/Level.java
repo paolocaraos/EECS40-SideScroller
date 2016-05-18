@@ -1,6 +1,8 @@
 package com.example.henk.sidescroll;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.Vector;
 
@@ -27,6 +29,8 @@ public class Level {
 
     private boolean initiatingNextLevel;
     private boolean finishedLevel;
+
+    private int currHealthPercent = 100;
 
     Level(Canvas canvas,
           int screenWidth, int screenHeight,
@@ -101,6 +105,10 @@ public class Level {
         }
 
         //draw health bar
+        spriteFactory.currentHealth.set(screenWidth - 165,  screenHeight - 97 - 490*(currHealthPercent/100), screenWidth - 75, screenHeight - 97);
+        spriteFactory.currPaint.setStyle(Paint.Style.FILL);
+        spriteFactory.currPaint.setColor(Color.GREEN);
+        canvas.drawRect(spriteFactory.currentHealth,spriteFactory.currPaint);
         //draw score
 
         //draw items

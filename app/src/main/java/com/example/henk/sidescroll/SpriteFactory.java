@@ -1,6 +1,8 @@
 package com.example.henk.sidescroll;
 
 import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Rect;
 
 import java.util.Vector;
 
@@ -20,6 +22,9 @@ public class SpriteFactory {
     Bitmap block;
     Bitmap cloud;
     Bitmap rarecandy;
+    Paint currPaint = new Paint();
+    Rect currentHealth = new Rect();
+
 
     void addFlyingRSprite(Bitmap sprite){
         flyingR.add(sprite);
