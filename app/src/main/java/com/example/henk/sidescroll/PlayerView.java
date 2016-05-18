@@ -24,7 +24,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Canvas canvas;
 
     private Vector<Enemy> enemyVector = new Vector<Enemy>(3, 2);
-    private Vector<Terrain> terrainList= new Vector<Terrain>(100,5);
+    private Vector<Terrain> terrainList= new Vector<Terrain>(200,5);
     private Player player;
 
     SpriteFactory spriteFactory;
@@ -42,8 +42,6 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Rect leftSpace;
     Rect rightSpace;
     Rect shootSpace;
-
-
 
     Bitmap controls;
 
@@ -64,9 +62,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         level.draw(canvas);
 
         //draw arrowkeys;
-
-
-        upSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 42, screenWidth/2 + 100, screenHeight*2/3 + 242);
+        upSpace.set(screenWidth / 2 - 100, screenHeight * 2 / 3 + 42, screenWidth / 2 + 100, screenHeight * 2 / 3 + 242);
         downSpace.set(screenWidth/2 - 100, screenHeight*2/3 + 442, screenWidth/2 + 100, screenHeight*2/3 + 642);
         leftSpace.set(screenWidth/2 - 300, screenHeight*2/3 + 242 ,screenWidth/2 - 100, screenHeight*2/3 + 442);
         rightSpace.set(screenWidth/2 + 100, screenHeight*2/3 + 242, screenWidth/2 + 300, screenHeight*2/3 + 442);
@@ -79,8 +75,6 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         //update level
         level.update();
-
-
     }
 
     @Override
@@ -94,11 +88,18 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         gt = new GameThread(this);
         gt.start();
 
+        upSpace = new Rect();
+        downSpace = new Rect();
+        leftSpace = new Rect();
+        rightSpace = new Rect();
+        shootSpace = new Rect();
+
         //arrowkey
         up = BitmapFactory.decodeResource(getResources(),R.mipmap.up);
         down = BitmapFactory.decodeResource(getResources(),R.mipmap.down);
         left = BitmapFactory.decodeResource(getResources(),R.mipmap.left);
         right = BitmapFactory.decodeResource(getResources(),R.mipmap.right);
+        shoot = BitmapFactory.decodeResource(getResources(),R.mipmap.shoot);
 
         spriteFactory = new SpriteFactory();
         //Initialize bitmaps
@@ -222,6 +223,9 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
                         && touch_Y >= (screenHeight*2/3 + 242) && touch_Y <= (screenHeight*2/3 + 442)){
                     //shoot projectile
                 }
+                break;
+            case MotionEvent.ACTION_UP:
+                //stop
                 break;
         }
 
