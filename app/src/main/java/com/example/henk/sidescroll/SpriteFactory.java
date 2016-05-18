@@ -16,8 +16,10 @@ public class SpriteFactory {
     Vector<Bitmap> projectileR = new Vector<Bitmap>(4,1);
     Vector<Bitmap> impactL = new Vector<Bitmap>(5,1);
     Vector<Bitmap> impactR = new Vector<Bitmap>(5,1);
+    Vector<Bitmap> moltresL = new Vector<Bitmap>(4,1);
     Bitmap block;
     Bitmap cloud;
+    Bitmap rarecandy;
 
     void addFlyingRSprite(Bitmap sprite){
         flyingR.add(sprite);
@@ -43,11 +45,15 @@ public class SpriteFactory {
 
     void addImpactLSprite(Bitmap sprite) { impactL.add(sprite); }
 
+    void addMoltresLSprite(Bitmap sprite) { moltresL.add(sprite); }
+
     void addBlockSprite(Bitmap sprite){
         block = sprite;
     }
 
     void addCloudSprite(Bitmap sprite) { cloud = sprite; }
+
+    void addRareCandySprite(Bitmap sprite) { rarecandy = sprite; }
 
 
 

@@ -47,6 +47,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
     Rect currentHealth;
     Paint barPaint;
     Paint currPaint;
+    Paint healthText;
 
     Bitmap controls;
 
@@ -77,6 +78,11 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         currPaint.setStyle(Paint.Style.FILL);
         currPaint.setColor(Color.GREEN);
         canvas.drawRect(currentHealth,currPaint);
+        //text
+        canvas.drawPaint(healthText);
+        healthText.setColor(Color.BLACK);
+        healthText.setTextSize(20);
+        canvas.drawText("HP", screenWidth - 170, screenHeight - 72, healthText);
 
         //draw arrowkeys;
         upSpace.set(screenWidth / 2 - 100, screenHeight - 642, screenWidth / 2 + 100, screenHeight - 442);
@@ -115,6 +121,7 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         currPaint = new Paint();
         barPaint = new Paint();
+        healthText = new Paint();
 
 
         //arrowkey
@@ -131,6 +138,8 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
 
         spriteFactory.addBlockSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.brickblock));
         //spriteFactory.addCloudSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.lowrescloud));
+        spriteFactory.addRareCandySprite(BitmapFactory.decodeResource(getResources(), R.mipmap.rarecandy));
+
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right0));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right1));
         spriteFactory.addFlyingRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.right2));
@@ -197,6 +206,11 @@ public class PlayerView extends SurfaceView implements SurfaceHolder.Callback{
         spriteFactory.addImpactRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_r2));
         spriteFactory.addImpactRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_r3));
         spriteFactory.addImpactRSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.impact_r4));
+
+        spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l0));
+        spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l1));
+        spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l2));
+        spriteFactory.addMoltresLSprite(BitmapFactory.decodeResource(getResources(), R.mipmap.moltres_l3));
 
         screenHeight = getHeight();
         screenWidth = getWidth();
