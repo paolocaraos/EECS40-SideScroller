@@ -100,6 +100,9 @@ public class Level {
             playerProjectileVector.elementAt(i).draw(canvas);
         }
 
+        //draw health bar
+        //draw score
+
         //draw items
 
         //terrain draw algorithm has room for optimization
